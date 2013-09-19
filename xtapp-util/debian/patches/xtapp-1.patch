@@ -31,7 +31,7 @@
  
 --- a/fldtool/wfn2ee.F90
 +++ b/fldtool/wfn2ee.F90
-@@ -367,7 +367,7 @@
+@@ -367,10 +367,10 @@
    bbx = matmul(bb,ix)
    bbx = bbx/oneau
    do ib=1,nw
@@ -40,3 +40,8 @@
       buf1=adjustl(buf1)
       ofname=trim(argv(1))//'.'//trim(buf1)//'.ee.dx'//achar(0)
       call outfldpr(ofname, name, n1, n2, n3, bbx, iorg, nspin, &
+           n1, n2, n3, aee(:,:,:,:,ib), 0)
+   end do
+-end program wfn2ee
++end program wfn2ee
+\ No newline at end of file
