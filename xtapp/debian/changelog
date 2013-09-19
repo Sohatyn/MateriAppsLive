@@ -1,3 +1,11 @@
+xtapp (130701-2) wheezy; urgency=low
+
+  * Added xtapp script
+  * All the tools have been moved to /usr/libexec/xtapp to avoid name conflict
+  * Removed /usr/share/xtapp/tests
+
+ -- Synge Todo <wistaria@debian>  Thu, 19 Sep 2013 21:46:40 +0900
+
 xtapp (130701-1) wheezy; urgency=low
 
   * Initial debian package

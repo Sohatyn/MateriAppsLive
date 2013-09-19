@@ -1,0 +1,14 @@
+Change install directory
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -441,8 +441,8 @@
+ 	${CPP} -P ${DEFINES} $< | sed '/^ *$$/d' > $*.f
+ 
+ install: default
+-	install -d $(DESTDIR)/usr/bin
+-	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos xticonv strconv diffstr iplstr $(DESTDIR)/usr/bin
++	install -d $(DESTDIR)/usr/libexec/xtapp
++	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos xticonv strconv diffstr iplstr $(DESTDIR)/usr/libexec/xtapp
+ 
+ # Local Variables: ***
+ # mode:Makefile ***

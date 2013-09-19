@@ -1,2 +1,2 @@
+debian/script/xtapp	/usr/bin
 sample	/usr/share/xtapp
-tests	/usr/share/xtapp
