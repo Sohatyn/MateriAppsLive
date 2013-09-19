@@ -1,0 +1,5 @@
+xtapp-ps (130903-1) wheezy; urgency=low
+
+  * Initial version of debian package
+
+ -- Synge Todo <wistaria@issp.u-tokyo.ac.jp>  Thu, 19 Sep 2013 22:17:00 +0900
