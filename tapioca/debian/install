@@ -1,0 +1,4 @@
+sample			/usr/share/tapioca
+src/defaults.*ml	/usr/libexec/tapioca
+debian/tapioca.desktop	/usr/share/applications
+debian/script/tapioca	/usr/bin

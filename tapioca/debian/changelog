@@ -1,0 +1,5 @@
+tapioca (1.3.3-1) wheezy; urgency=low
+
+  * Initial debian package
+
+ -- Synge Todo <wistaria@issp.u-tokyo.ac.jp>  Fri, 20 Sep 2013 00:50:08 +0900

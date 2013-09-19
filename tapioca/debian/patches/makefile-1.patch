@@ -1,0 +1,64 @@
+Compiler setting and installatoin
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,2 @@
++All %:
++	make $@ -C src
+--- a/src/Makefile.inc
++++ b/src/Makefile.inc
+@@ -1,9 +1,9 @@
+ ### for Cygwin/Windows and Qt4 with mingw
+-QT4    =  /usr/local/qt4
+-CC     =  g++-3 -mno-cygwin
+-CFLAGS = -O3 -Wall
+-INCS   = -I$(QT4)/include
+-LIBS   =  -L/usr/lib/mingw -L$(QT4)/lib -lQtCore4 -lQtGui4 -lQtOpenGL4 -lQtXml4 -lopengl32 -lglu32 -llapack -lblas -lg2c
++#QT4    =  /usr/local/qt4
++#CC     =  g++-3 -mno-cygwin
++#CFLAGS = -O3 -Wall
++#INCS   = -I$(QT4)/include
++#LIBS   =  -L/usr/lib/mingw -L$(QT4)/lib -lQtCore4 -lQtGui4 -lQtOpenGL4 -lQtXml4 -lopengl32 -lglu32 -llapack -lblas -lg2c
+ # -mwindows
+ ICON   =  icon.o
+ 
+@@ -16,12 +16,12 @@
+ #ICON   = 
+ 
+ ### for Linux, debian 6
+-#QT4    =  /usr
+-#CC     =  g++
+-#CFLAGS = -O3 -Wall
+-#INCS   = -I/usr/include/stlport -I/usr/include/qt4 -I/usr/X11R6/include
+-#LIBS   = -lQtCore -lQtGui -lQtOpenGL -lQtXml -lGLU -lstlport -llapack -lblas
+-#ICON   = 
++QT4    =  /usr
++CC     =  g++
++CFLAGS = -O3 -Wall
++INCS   = -I/usr/include/qt4 -I/usr/X11R6/include
++LIBS   = -lQtCore -lQtGui -lQtOpenGL -lQtXml -lGLU -llapack -lblas
++ICON   = 
+ 
+ ### for Mac
+ #QT4    =  /usr/local/Trolltech/Qt-4.8.4
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -53,7 +53,7 @@
+ $(ICON): icon.rc icon.ico
+ 	windres.exe -i icon.rc -o icon.o
+ 
+-clean:
++clean distclean:
+ 	rm -f *.moc.cpp *.exe *.exe.stackdump *.o *~ *.bak $(TARGET)
+ 
+ tgz:
+@@ -64,4 +64,10 @@
+ 	touch Makefile.dep
+ 	makedepend -fMakefile.dep -Y -- *.cc 2> /dev/null
+ 
++test: $(TARGET)
++
++install: $(TARGET)
++	install -d $(DESTDIR)/usr/libexec/tapioca
++	install $(TARGET) $(DESTDIR)/usr/libexec/tapioca
++
+ include Makefile.dep
