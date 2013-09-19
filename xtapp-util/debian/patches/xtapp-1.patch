@@ -1,0 +1,42 @@
+--- a/fldtool/rok2dx.F90
++++ b/fldtool/rok2dx.F90
+@@ -95,11 +95,11 @@
+      read(nfin) sk
+      do is=1,nspin
+         do ib=0,nbba2-nbba1
+-           write(buf1,'(i)') ib + nbba1
++           write(buf1,*) ib + nbba1
+            buf1=adjustl(buf1)
+-           write(buf2,'(i)') ik
++           write(buf2,*) ik
+            buf2=adjustl(buf2)
+-           write(buf3,'(i)') is
++           write(buf3,*) is
+            buf3=adjustl(buf3)
+            read(nfin) ee
+            if (expandq) then
+--- a/fldtool/wfn2dx.F90
++++ b/fldtool/wfn2dx.F90
+@@ -223,9 +223,9 @@
+            end do
+         end if
+ 
+-        write(buf1,'(i)') ib
++        write(buf1,*) ib
+         buf1=adjustl(buf1)
+-        write(buf2,'(i)') ik
++        write(buf2,*) ik
+         buf2=adjustl(buf2)
+         name='TAPP wfn'//achar(0)
+ 
+--- a/fldtool/wfn2ee.F90
++++ b/fldtool/wfn2ee.F90
+@@ -367,7 +367,7 @@
+   bbx = matmul(bb,ix)
+   bbx = bbx/oneau
+   do ib=1,nw
+-     write(buf1,'(i)') ib
++     write(buf1,*) ib
+      buf1=adjustl(buf1)
+      ofname=trim(argv(1))//'.'//trim(buf1)//'.ee.dx'//achar(0)
+      call outfldpr(ofname, name, n1, n2, n3, bbx, iorg, nspin, &

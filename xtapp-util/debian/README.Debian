@@ -1,0 +1,2 @@
+All the utilities will be installed in /usr/libexec/xtapp instead of /usr/bin,
+in order to avoid name conflict.
