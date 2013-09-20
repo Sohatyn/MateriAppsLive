@@ -1,14 +1,41 @@
 Change install directory
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -441,8 +441,8 @@
+@@ -11,7 +11,7 @@
+ .SUFFIXES: .o .F .f .F90 .f90 .c
+ 
+ default: inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos \
+-	xticonv strconv diffstr iplstr
++	xticonv strconv diffstr iplstr cmpstr
+ 
+ .F.o:
+ 	${FC} ${F77FLAGS} ${FFLAGS} -c $<
+@@ -421,13 +421,16 @@
+ iplstr: iplstr.F90 subr_readstr.o
+ 	${FC} -o iplstr iplstr.F90 subr_readstr.o
+ 
++cmpstr: cmpstr.F90 subr_readstr.o
++	${FC} -o cmpstr cmpstr.F90 subr_readstr.o
++
+ clean distclean:
+ 	/bin/rm -f core *.o *~ *.bak *.orig TAGS *.rej *.mod *.log \
+ 	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pefcos \
+ 	a.out \
+ 	pfft3ds.f90 fft3dsp.f90 fft3dsp_subr.f90 fft3duz.f90 fft3duz_subr.f90 \
+ 	fftgrid.h mkl_dfti.f90 fftgrid-vx.h \
+-	xticonv strconv diffstr iplstr
++	xticonv strconv diffstr iplstr cmpstr
+ 
+ tgz:
+ 	tar cf xTAPP.tar *.F *.f90 *.F90 config.h-dist \
+@@ -441,8 +444,8 @@
  	${CPP} -P ${DEFINES} $< | sed '/^ *$$/d' > $*.f
  
  install: default
 -	install -d $(DESTDIR)/usr/bin
 -	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos xticonv strconv diffstr iplstr $(DESTDIR)/usr/bin
 +	install -d $(DESTDIR)/usr/libexec/xtapp
-+	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos xticonv strconv diffstr iplstr $(DESTDIR)/usr/libexec/xtapp
++	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos xticonv strconv diffstr iplstr cmpstr $(DESTDIR)/usr/libexec/xtapp
  
  # Local Variables: ***
  # mode:Makefile ***
