@@ -3,8 +3,7 @@ Upstream-Name: xtapp-util
 Source: http://frodo.wpi-aimr.tohoku.ac.jp/xtapp/index.html
 
 Files: *
-Copyright: 1983-2000,2012-2013 TAPP Consortium
-           2000-2013 Yoshihide Yoshimoto
+Copyright: 2013 Yoshihide Yoshimoto
 License: GPL-3+
  xTAPP is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  the Free Software Foundation, version 3 of the License.

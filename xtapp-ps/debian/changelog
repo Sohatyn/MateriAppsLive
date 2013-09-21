@@ -1,3 +1,9 @@
+xtapp-ps (130903-2) wheezy; urgency=low
+
+  * Fixed copyright
+
+ -- Synge Todo <wistaria@issp.u-tokyo.ac.jp>  Sun, 22 Sep 2013 01:19:40 +0900
+
 xtapp-ps (130903-1) wheezy; urgency=low
 
   * Initial version of debian package
