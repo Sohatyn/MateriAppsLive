@@ -1,3 +1,9 @@
+machikaneyama-setup (1.2) wheezy; urgency=low
+
+  * Fixed issue #34.
+
+ -- Synge Todo <wistaria@issp.u-tokyo.ac.jp>  Sun, 22 Sep 2013 16:43:10 +0900
+
 machikaneyama-setup (1.1) wheezy; urgency=low
 
   * Added a field for displaying download and compile log.
