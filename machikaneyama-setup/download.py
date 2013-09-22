@@ -6,12 +6,13 @@
 #   Emulating a Browser in Python with mechanize
 #   http://stockrt.github.io/p/emulating-a-browser-in-python-with-mechanize/
 
+import os
 import sys
 import mechanize
 
 import config
 
-def Download(url, file, email, password):
+def Download(url, file, email, password, targetdir):
     # Create Browser
     br = mechanize.Browser()
     
@@ -44,17 +45,18 @@ def Download(url, file, email, password):
     print "Downloading " + file + "..."
     br.open(req)
     body = br.response().read()
-    f = open(file, 'w')
+    f = open(os.path.join(targetdir, file), 'w')
     f.write(body)
     f.close()
     print "Done."
     return 0
 
 if __name__ == '__main__':
-    if (len(sys.argv) != 3):
-        print "Usage:", sys.argv[0], "email", "password"
+    if (len(sys.argv) != 4):
+        print "Usage:", sys.argv[0], "email", "password", "target_directory"
         sys.exit(127)
     email = sys.argv[1]
     password = sys.argv[2]
-    ret = Download(config.url, config.tarfile, email, password)
+    targetdir = sys.argv[3]
+    ret = Download(config.url, config.tarfile, email, password, targetdir)
     sys.exit(ret)
