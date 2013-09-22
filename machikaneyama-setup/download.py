@@ -42,6 +42,8 @@ def Download(url, file, email, password, targetdir):
         return 127
         
     # Download tarball
+    if (not os.path.isdir(targetdir)):
+        os.mkdir(targetdir)
     print "Downloading " + file + "..."
     br.open(req)
     body = br.response().read()
