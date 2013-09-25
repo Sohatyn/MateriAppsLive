@@ -1,3 +1,9 @@
+xtapp (130919-3) wheezy; urgency=low
+
+  * Added PDF version of documents.
+
+ -- Synge Todo <wistaria@issp.u-tokyo.ac.jp>  Tue, 25 Sep 2013 15:55:53 +0900
+
 xtapp (130919-2) wheezy; urgency=low
 
   * Added test input parameters and scripts in /usr/share/xtapp/check
