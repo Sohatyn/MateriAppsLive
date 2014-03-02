@@ -171,9 +171,18 @@
  #==========================================================
  ################## FOR ESM METHOD by M.Otani 2006/02/06####################
  ################## Modified by Y.Ando 2011/01/21 ##########################
+@@ -476,7 +476,7 @@
+ cmpstr: cmpstr.F90 subr_readstr.o
+ 	${FC} -o cmpstr cmpstr.F90 subr_readstr.o ${LDLIBS}
+ 
+-clean: esm_clean
++clean distclean: esm_clean
+ 	/bin/rm -f core *.o *~ *.bak *.orig TAGS *.rej *.mod *.log \
+ 	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pefcos \
+ 	a.out \
 --- /dev/null
 +++ b/src/Makefile
-@@ -0,0 +1,509 @@
+@@ -0,0 +1,513 @@
 +# Copyright (c) 1983-2000 TAPP Consortium
 +# Copyright (c) 2000-2014 Yoshihide Yoshimoto
 +######################################################################
@@ -652,7 +661,7 @@
 +cmpstr: cmpstr.F90 subr_readstr.o
 +	${FC} -o cmpstr cmpstr.F90 subr_readstr.o ${LDLIBS}
 +
-+clean: esm_clean
++clean distclean: esm_clean
 +	/bin/rm -f core *.o *~ *.bak *.orig TAGS *.rej *.mod *.log \
 +	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pefcos \
 +	a.out \
@@ -679,6 +688,10 @@
 +
 +.F.f:
 +	${CPP} -P ${DEFINES} $< | sed '/^ *$$/d' > $*.f
++
++install: default
++	install -d $(DESTDIR)/usr/bin
++	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos xticonv strconv diffstr iplstr cmpstr $(DESTDIR)/usr/bin
 +
 +# Local Variables: ***
 +# mode:Makefile ***

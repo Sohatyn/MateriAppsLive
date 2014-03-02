@@ -7,7 +7,7 @@ Patch for supporting I/O and unit association by environment variables
 +
 +default: doc/develop.pdf doc/example-c6h12.pdf doc/example-cu.pdf doc/formalism.pdf doc/inputformat.pdf doc/programs.pdf doc/tutorial.pdf
 +
-+clean: clean-doc
++clean distclean: clean-doc
 +
 +clean-doc:
 +	rm -f doc/*.aux doc/*.dvi doc/*.log doc/*.toc doc/*.pdf
@@ -102,6 +102,17 @@ Patch for supporting I/O and unit association by environment variables
  # for K computer
  #
  #FC = mpifrtpx
+@@ -473,6 +504,10 @@
+ .F.f:
+ 	${CPP} -P ${DEFINES} $< | sed '/^ *$$/d' > $*.f
+ 
++install: default
++	install -d $(DESTDIR)/usr/bin
++	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos xticonv strconv diffstr iplstr cmpstr $(DESTDIR)/usr/bin
++
+ # Local Variables: ***
+ # mode:Makefile ***
+ # End:***
 --- /dev/null
 +++ b/src/giounit_open.C
 @@ -0,0 +1,32 @@
