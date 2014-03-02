@@ -4,14 +4,16 @@ set -x
 
 XTAPP_PS_DIR=/usr/share/xtapp/pseudo-potential/PS
 
-rm -f fort.*
-cp -p quartz.cg fort.10
-cp -p $XTAPP_PS_DIR/ps-Si fort.34
-cp -p $XTAPP_PS_DIR/ps-O fort.35
-time xtapp inipot > quartz-initpot.log
+# export GIOUNIT_DEBUG=1
 
-time mpirun -np 1 xtapp cgmrpt > quartz-cgmrpt.log
-mv fort.11 quartz.lpt
-mv fort.25 quartz.rho
-mv fort.96 quartz.wfn
-mv fort.99 quartz.str
+rm -f fort.* quartz.lpt quartz.rho quartz.str quartz.wfn *.log
+export FORT10=quartz.cg
+export FORT34=$XTAPP_PS_DIR/ps-Si
+export FORT35=$XTAPP_PS_DIR/ps-O
+time inipot > quartz-initpot.log
+
+export FORT11=quartz.lpt
+export FORT25=quartz.rho
+export FORT96=quartz.wfn
+export FORT99=quartz.str
+time cgmrpt > quartz-cgmrpt.log
