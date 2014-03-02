@@ -1,14 +1,181 @@
-Makefile and config for debian system
---- /dev/null
-+++ b/Makefile
-@@ -0,0 +1,2 @@
-+%:
-+	make $@ -C src
+--- a/src/Makefile-dist
++++ b/src/Makefile-dist
+@@ -51,35 +51,35 @@
+ #--------------------------------
+ # for Intel Linux and Intel Fortran Compiler 11.0
+ #
+-MDOBJ = mdunistd.o paraenv.o
++#MDOBJ = mdunistd.o paraenv.o
+ #
+ # -DINCONSISTENT_THREAD_COMP
+ #    when thread computing is inconsistent, define this
+-DEFINES = ${GDEFS} -DINCONSISTENT_THREAD_COMP
++#DEFINES = ${GDEFS} -DINCONSISTENT_THREAD_COMP
+ 
+-FFLAGS = -O3 -openmp -msse3 -fno-inline-functions -traceback ${DEFINES}
+-F77FLAGS =
+-F90FLAGS =
+-FOPTNON = -O0
++#FFLAGS = -O3 -openmp -msse3 -fno-inline-functions -traceback ${DEFINES}
++#F77FLAGS =
++#F90FLAGS =
++#FOPTNON = -O0
+ 
+ # for NVIDIA CUDA
+ #LDFLAGS = -openmp -L /usr/local/cuda40/cuda/lib64 -lcutil_x86_64 -lcufft -lcuda
+ # for AMD GPU
+-LDFLAGS = -openmp -L /opt/AMDAPPML/clAmdFft-1.8.291/lib64 -lclAmdFft.Runtime
++#LDFLAGS = -openmp -L /opt/AMDAPPML/clAmdFft-1.8.291/lib64 -lclAmdFft.Runtime
+ # for CPU
+ #LDFLAGS = -openmp
+ 
+ # for NVIDIA CUDA
+ #CFLAGS = -openmp -O3 -fno-inline-functions
+ # for AMD GPU
+-CFLAGS = -openmp -O3 -fno-inline-functions -I /opt/AMDAPP/include -I /opt/AMDAPPML/clAmdFft-1.8.291/include
++#CFLAGS = -openmp -O3 -fno-inline-functions -I /opt/AMDAPP/include -I /opt/AMDAPPML/clAmdFft-1.8.291/include
+ # for CPU
+ #CFLAGS = -openmp -O3 -fno-inline-functions
+ #
+ # for multi-thread
+ #LIBLAPACK = -lmkl_lapack95_lp64 # for composerxe-2011
+-LIBLAPACK = -lmkl_lapack
+-LIBBLAS = -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread
++#LIBLAPACK = -lmkl_lapack
++#LIBBLAS = -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread
+ #
+ # for single-thread
+ ##LIBLAPACK = -lmkl_lapack95_lp64 # for composerxe-2011
+@@ -99,36 +99,36 @@
+ #	-lgdrdgemm-ovl -L $(GDRBASEDIR)/gdrtb3/singlibMC_tb4 \
+ #	-lsing -L $(GDRBASEDIR)/gdrtb3/hibutil -lhib
+ 
+-ARCH_OBJ = arch_dgemm.o
++#ARCH_OBJ = arch_dgemm.o
+ #ARCH_OBJ = arch_gdr.o
+ #ARCH_OBJ = arch_nehalem.o
+-arch_nehalem.o: arch_nehalem.f90 timeprof.o
+-	${FC} -O3 -openmp -msse3 -fno-inline-functions -unroll=0 -traceback ${DEFINES} -c $<
++#arch_nehalem.o: arch_nehalem.f90 timeprof.o
++#	${FC} -O3 -openmp -msse3 -fno-inline-functions -unroll=0 -traceback ${DEFINES} -c $<
+ 
+-XMPI_OBJ = xmpi_univ.o
++#XMPI_OBJ = xmpi_univ.o
+ 
+-EIGSYSTM_OBJ = eigsystm-lapack.o
++#EIGSYSTM_OBJ = eigsystm-lapack.o
+ #EIGSYSTM_OBJ = eigsystm-scalapack.o
+ 
+-FFT3D_OBJ = fft3d_mkl.o
+-mkl_dfti.o: mkl_dfti.f90
+-mkl_dfti.f90:
+-	cp ${MKLROOT}/include/mkl_dfti.f90 .
+-FFTGRID_H_SRC = fftgrid-scl.h
++#FFT3D_OBJ = fft3d_mkl.o
++#mkl_dfti.o: mkl_dfti.f90
++#mkl_dfti.f90:
++#	cp ${MKLROOT}/include/mkl_dfti.f90 .
++#FFTGRID_H_SRC = fftgrid-scl.h
+ 
+ #FFT3D_OBJ = fft3d_fftw.o
+ #FFTGRID_H_SRC = fftgrid-scl-fftw.h
+ 
+-exchange_kern_cuda.o: exchange_kern_cuda.cu exchange_kern_cuda.h
+-	nvcc -ccbin=icc -Xcompiler -openmp -I /usr/local/cuda40/cuda/NVIDIA_GPU_Computing_SDK/C/common/inc -m64 -c -arch sm_20 exchange_kern_cuda.cu
++#exchange_kern_cuda.o: exchange_kern_cuda.cu exchange_kern_cuda.h
++#	nvcc -ccbin=icc -Xcompiler -openmp -I /usr/local/cuda40/cuda/NVIDIA_GPU_Computing_SDK/C/common/inc -m64 -c -arch sm_20 exchange_kern_cuda.cu
+ 
+-mdlin.o: mdlin.F
+-	${FC} -c ${DEFINES} ${FOPTNON} mdlin.F
++#mdlin.o: mdlin.F
++#	${FC} -c ${DEFINES} ${FOPTNON} mdlin.F
+ 
+ # for AMD GPU
+-CC = icc
+-FC_CIF = ifort
+-FFLAG_CIF = 
++#CC = icc
++#FC_CIF = ifort
++#FFLAG_CIF = 
+ #--------------------------------
+ #for AMD64 Debian Linux and gfortran-4.4.5
+ #with openmpi-1.4.3
+@@ -170,32 +170,32 @@
+ #--------------------------------
+ #for x86_64 Debian Linux by S. Todo (2014.3)
+ #
+-#ARCH_OBJ = arch_dgemm.o giounit_open.o giounit_util.o
+-#MDOBJ = mdunistd.o paraenv.o
+-#DEFINES = -O3 ${GDEFS} -DINCONSISTENT_THREAD_COMP
+-
+-#FFLAGS = -O3 -fopenmp -msse3 -fno-inline-functions ${DEFINES} -I/usr/include
+-#F77FLAGS =
+-#F90FLAGS = -ffree-line-length-none
+-#FOPTNON = -O0
++ARCH_OBJ = arch_dgemm.o giounit_open.o giounit_util.o
++MDOBJ = mdunistd.o paraenv.o
++DEFINES = -O3 ${GDEFS} -DINCONSISTENT_THREAD_COMP
+ 
+-#LDFLAGS = -fopenmp
+-#CFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
+-#CXXFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
++FFLAGS = -O3 -fopenmp -msse3 -fno-inline-functions ${DEFINES} -I/usr/include
++F77FLAGS =
++F90FLAGS = -ffree-line-length-none
++FOPTNON = -O0
+ 
+-#LIBLAPACK = -lfftw3_threads -llapack
+-#LIBBLAS = -lblas
+-#EXTRALIBS = -lstdc++
++LDFLAGS = -fopenmp
++CFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
++CXXFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
++
++LIBLAPACK = -lfftw3_threads -llapack
++LIBBLAS = -lblas
++EXTRALIBS = -lstdc++
+ 
+-#XMPI_OBJ = xmpi_univ.o
+-#EIGSYSTM_OBJ = eigsystm-lapack.o
+-#FFT3D_OBJ = fft3d_fftw.o
+-#FFTGRID_H_SRC = fftgrid-scl-fftw.h
++XMPI_OBJ = xmpi_univ.o
++EIGSYSTM_OBJ = eigsystm-lapack.o
++FFT3D_OBJ = fft3d_fftw.o
++FFTGRID_H_SRC = fftgrid-scl-fftw.h
+ 
+-#CC = gcc
+-#CXX = g++
+-#FC_CIF = gfortran
+-#FFLAG_CIF = 
++CC = gcc
++CXX = g++
++FC_CIF = gfortran
++FFLAG_CIF = 
+ #--------------------------------
+ # for K computer
+ #
+@@ -264,11 +264,11 @@
+ #SCGDGOBJ = dvdsnmp.o hploc.o nlprj.o rotwfn.o sorthcl.o \
+ #	exchange.o exchange_kern_cuda.o ${EIGSYSTM_OBJ}
+ # for AMD GPU
+-SCGDGOBJ = dvdsnmp.o hploc.o nlprj.o rotwfn.o sorthcl.o \
+-	exchange.o exchange_kern_opencl_noevent.o ${EIGSYSTM_OBJ}
+-# for CPU
+ #SCGDGOBJ = dvdsnmp.o hploc.o nlprj.o rotwfn.o sorthcl.o \
+-#	exchange.o exchange_kern.o ${EIGSYSTM_OBJ}
++#	exchange.o exchange_kern_opencl_noevent.o ${EIGSYSTM_OBJ}
++# for CPU
++SCGDGOBJ = dvdsnmp.o hploc.o nlprj.o rotwfn.o sorthcl.o \
++	exchange.o exchange_kern.o ${EIGSYSTM_OBJ}
+ #==========================================================
+ ################## FOR ESM METHOD by M.Otani 2006/02/06####################
+ ################## Modified by Y.Ando 2011/01/21 ##########################
 --- /dev/null
 +++ b/src/Makefile
-@@ -0,0 +1,449 @@
+@@ -0,0 +1,509 @@
 +# Copyright (c) 1983-2000 TAPP Consortium
-+# Copyright (c) 2000-2013 Yoshihide Yoshimoto
++# Copyright (c) 2000-2014 Yoshihide Yoshimoto
 +######################################################################
 +# Makefile for xTAPP programs
 +######################################################################
@@ -17,10 +184,10 @@ Makefile and config for debian system
 +FC=mpif90
 +
 +.SUFFIXES:
-+.SUFFIXES: .o .F .f .F90 .f90 .c
++.SUFFIXES: .o .F .f .F90 .f90 .c .C
 +
 +default: inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos \
-+	xticonv strconv diffstr iplstr
++	xticonv strconv diffstr iplstr cmpstr
 +
 +.F.o:
 +	${FC} ${F77FLAGS} ${FFLAGS} -c $<
@@ -30,6 +197,8 @@ Makefile and config for debian system
 +	${FC} ${F90FLAGS} ${FFLAGS} -c $<
 +.c.o:
 +	${CC} ${CFLAGS} -c $<
++.C.o:
++	${CXX} ${CXXFLAGS} -c $<
 +#-----------------------------------------------
 +
 +################################################################
@@ -48,30 +217,33 @@ Makefile and config for debian system
 +#    compatible with psv-2.3 by Y. Suwa
 +# -DCOMPAT_OLD_STR_FORMAT
 +#    old format for structure optimization result file
-+GDEFS = -DPWB_SORTED_BY_INDEX
-+
++# -DESM
++#    enable ESM method
++#----------------------------------------------------------
++#
++GDEFS = -DPWB_SORTED_BY_INDEX -DESM
 +#==========================================================
 +# Uncomment your machine's part and comment out all others. 
 +#--------------------------------
 +# for Intel Linux and Intel Fortran Compiler 11.0
 +#
-+MDOBJ = mdunistd.o paraenv.o
++#MDOBJ = mdunistd.o paraenv.o
 +#
 +# -DINCONSISTENT_THREAD_COMP
 +#    when thread computing is inconsistent, define this
-+DEFINES = ${GDEFS} -DINCONSISTENT_THREAD_COMP
++#DEFINES = ${GDEFS} -DINCONSISTENT_THREAD_COMP
 +
-+FFLAGS = -O3 -fopenmp -msse3 -fno-inline-functions -ffree-line-length-none ${DEFINES} -I/usr/include
-+F77FLAGS =
-+F90FLAGS =
-+FOPTNON = -O0
++#FFLAGS = -O3 -openmp -msse3 -fno-inline-functions -traceback ${DEFINES}
++#F77FLAGS =
++#F90FLAGS =
++#FOPTNON = -O0
 +
 +# for NVIDIA CUDA
 +#LDFLAGS = -openmp -L /usr/local/cuda40/cuda/lib64 -lcutil_x86_64 -lcufft -lcuda
 +# for AMD GPU
 +#LDFLAGS = -openmp -L /opt/AMDAPPML/clAmdFft-1.8.291/lib64 -lclAmdFft.Runtime
 +# for CPU
-+LDFLAGS = -fopenmp
++#LDFLAGS = -openmp
 +
 +# for NVIDIA CUDA
 +#CFLAGS = -openmp -O3 -fno-inline-functions
@@ -103,36 +275,36 @@ Makefile and config for debian system
 +#	-lgdrdgemm-ovl -L $(GDRBASEDIR)/gdrtb3/singlibMC_tb4 \
 +#	-lsing -L $(GDRBASEDIR)/gdrtb3/hibutil -lhib
 +
-+ARCH_OBJ = arch_dgemm.o
++#ARCH_OBJ = arch_dgemm.o
 +#ARCH_OBJ = arch_gdr.o
 +#ARCH_OBJ = arch_nehalem.o
-+arch_nehalem.o: arch_nehalem.f90 timeprof.o
-+	${FC} -O3 -openmp -msse3 -fno-inline-functions -unroll=0 -traceback ${DEFINES} -c $<
++#arch_nehalem.o: arch_nehalem.f90 timeprof.o
++#	${FC} -O3 -openmp -msse3 -fno-inline-functions -unroll=0 -traceback ${DEFINES} -c $<
 +
-+XMPI_OBJ = xmpi_univ.o
++#XMPI_OBJ = xmpi_univ.o
 +
-+EIGSYSTM_OBJ = eigsystm-lapack.o
++#EIGSYSTM_OBJ = eigsystm-lapack.o
 +#EIGSYSTM_OBJ = eigsystm-scalapack.o
 +
-+## FFT3D_OBJ = fft3d_mkl.o
-+##mkl_dfti.o: mkl_dfti.f90
-+##mkl_dfti.f90:
-+##	cp ${MKLROOT}/include/mkl_dfti.f90 .
-+##FFTGRID_H_SRC = fftgrid-scl.h
++#FFT3D_OBJ = fft3d_mkl.o
++#mkl_dfti.o: mkl_dfti.f90
++#mkl_dfti.f90:
++#	cp ${MKLROOT}/include/mkl_dfti.f90 .
++#FFTGRID_H_SRC = fftgrid-scl.h
 +
-+FFT3D_OBJ = fft3d_fftw.o
-+FFTGRID_H_SRC = fftgrid-scl-fftw.h
++#FFT3D_OBJ = fft3d_fftw.o
++#FFTGRID_H_SRC = fftgrid-scl-fftw.h
 +
-+exchange_kern_cuda.o: exchange_kern_cuda.cu exchange_kern_cuda.h
-+	nvcc -ccbin=icc -Xcompiler -openmp -I /usr/local/cuda40/cuda/NVIDIA_GPU_Computing_SDK/C/common/inc -m64 -c -arch sm_20 exchange_kern_cuda.cu
++#exchange_kern_cuda.o: exchange_kern_cuda.cu exchange_kern_cuda.h
++#	nvcc -ccbin=icc -Xcompiler -openmp -I /usr/local/cuda40/cuda/NVIDIA_GPU_Computing_SDK/C/common/inc -m64 -c -arch sm_20 exchange_kern_cuda.cu
 +
-+mdlin.o: mdlin.F
-+	${FC} -c ${DEFINES} ${FOPTNON} mdlin.F
++#mdlin.o: mdlin.F
++#	${FC} -c ${DEFINES} ${FOPTNON} mdlin.F
 +
 +# for AMD GPU
-+CC = icc
-+FC_CIF = ifort
-+FFLAG_CIF = 
++#CC = icc
++#FC_CIF = ifort
++#FFLAG_CIF = 
 +#--------------------------------
 +#for AMD64 Debian Linux and gfortran-4.4.5
 +#with openmpi-1.4.3
@@ -147,14 +319,14 @@ Makefile and config for debian system
 +
 +#FFLAGS = ${DEFINES} -I /usr/local/include
 +#F77FLAGS =
-+#F90FLAGS =
++#F90FLAGS = -ffree-line-length-none
 +#FOPTNON = -O0
 +
 +#LDFLAGS = 
 +#CFLAGS = 
 +#
-+LIBLAPACK = -lfftw3_threads -llapack
-+LIBBLAS = -lblas
++#LIBLAPACK = -L /usr/local/lib -lfftw3 -llapack
++#LIBBLAS = -lblas
 +#
 +
 +#ARCH_OBJ = arch_univ.o
@@ -162,7 +334,7 @@ Makefile and config for debian system
 +#XMPI_OBJ = xmpi_univ.o
 +
 +##EIGSYSTM_OBJ = eigsystm.o
-+EIGSYSTM_OBJ = eigsystm-lapack.o
++#EIGSYSTM_OBJ = eigsystm-lapack.o
 +##EIGSYSTM_OBJ = eigsystm-scalapack.o
 +
 +#FFT3D_OBJ = fft3d_fftw.o
@@ -171,6 +343,35 @@ Makefile and config for debian system
 +#CC = gcc
 +#FC_CIF = gfortran
 +#FFLAG_CIF = 
++#--------------------------------
++#for x86_64 Debian Linux by S. Todo (2014.3)
++#
++ARCH_OBJ = arch_dgemm.o giounit_open.o giounit_util.o
++MDOBJ = mdunistd.o paraenv.o
++DEFINES = -O3 ${GDEFS} -DINCONSISTENT_THREAD_COMP
++
++FFLAGS = -O3 -fopenmp -msse3 -fno-inline-functions ${DEFINES} -I/usr/include
++F77FLAGS =
++F90FLAGS = -ffree-line-length-none
++FOPTNON = -O0
++
++LDFLAGS = -fopenmp
++CFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
++CXXFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
++
++LIBLAPACK = -lfftw3_threads -llapack
++LIBBLAS = -lblas
++EXTRALIBS = -lstdc++
++
++XMPI_OBJ = xmpi_univ.o
++EIGSYSTM_OBJ = eigsystm-lapack.o
++FFT3D_OBJ = fft3d_fftw.o
++FFTGRID_H_SRC = fftgrid-scl-fftw.h
++
++CC = gcc
++CXX = g++
++FC_CIF = gfortran
++FFLAG_CIF = 
 +#--------------------------------
 +# for K computer
 +#
@@ -245,7 +446,13 @@ Makefile and config for debian system
 +SCGDGOBJ = dvdsnmp.o hploc.o nlprj.o rotwfn.o sorthcl.o \
 +	exchange.o exchange_kern.o ${EIGSYSTM_OBJ}
 +#==========================================================
-+
++################## FOR ESM METHOD by M.Otani 2006/02/06####################
++################## Modified by Y.Ando 2011/01/21 ##########################
++ESMMODOBJ = m_fft1d.o esm_gvar.o esm_util.o esm_debinfo.o esm_loc.o \
++	esm_pot.o esm_ewald.o esm_2d.o esm_manage.o
++ESMMNGOBJ = esm_manage.o
++ESMGVOBJ = esm_gvar.o
++#==========================================================
 +###################################################################
 +# Configuration area is ended. Do not edit the followings.
 +###################################################################
@@ -267,21 +474,21 @@ Makefile and config for debian system
 +	engdffr.o crgen.o ioniclpot.o \
 +	chainjob.o doss.o p2s.o initlpt.o atomicchrg.o ${COMMONOBJ} \
 +	ldos.o prclpt.o poisson.o sdoss.o p2d.o meshgen.o replica.o \
-+	stropt_cnstr.o
++	stropt_cnstr.o ${ESMMODOBJ}
 +MDRPTOBJ = mdrpt.o moldyn.o ewald.o refforce-ewald.o scfloop.o zxtrap.o \
 +	engdffr.o crgen.o ioniclpot.o \
 +	chainjob.o doss.o p2s.o initlpt.o atomicchrg.o mdmuca.o \
 +	${COMMONOBJ} meshgen.o \
-+	ldos.o prclpt.o poisson.o sdoss.o p2d.o replica.o
-+INIPOTOBJ = inipot.o ${COMMONOBJ} replica.o
++	ldos.o prclpt.o poisson.o sdoss.o p2d.o replica.o ${ESMMODOBJ}
++INIPOTOBJ = inipot.o ${COMMONOBJ} replica.o ${ESMMODOBJ}
 +VBPEFOBJ  = vbpef.o vbband.o bunpu.o crgen.o ${COMMONOBJ} \
 +	initlpt.o ioniclpot.o atomicchrg.o meshgen.o \
-+	chainjob.o zxtrap.o
++	chainjob.o zxtrap.o ${ESMMODOBJ}
 +VBSTMOBJ = vbstm.o stmitgdos.o sdoss.o doss.o p2s.o p2d.o chainjob.o \
 +	initlpt.o crgen.o zxtrap.o ioniclpot.o \
-+	atomicchrg.o ${COMMONOBJ} meshgen.o
++	atomicchrg.o ${COMMONOBJ} meshgen.o ${ESMMODOBJ}
 +WFN2CHGOBJ = wfn2chg.o vbchrg.o chainjob.o \
-+	crgen.o zxtrap.o bunpu.o ${COMMONOBJ} meshgen.o
++	crgen.o zxtrap.o bunpu.o ${COMMONOBJ} meshgen.o ${ESMMODOBJ}
 +PEFCOSOBJ  = pefcos.o ${MDOBJ} util.o \
 +	subr_input.o read_tappinput.o chainjob.o xcf_types.o zxtrap.o \
 +	timeprof.o
@@ -310,37 +517,39 @@ Makefile and config for debian system
 +pdos: pdos.o
 +	${FC} ${LDFLASG} -o $@ pdos.o ${LDLIBS}
 +
-+pefcos.o: pefcos.F subr_input.o config.h
++pefcos.o: pefcos.F subr_input.o chainjob.o util.o config.h
 +vbpef.o: vbpef.F90 config90.h util.o iounit.o vbband.o \
 +	bsplpot.o makedd.o types.o initlpt.o meshgen.o xcf_types.o \
-+	chainjob.o exchange.o chkinput.o subr_input.o
++	chainjob.o exchange.o chkinput.o subr_input.o ${ESMMNGOBJ}
 +vbband.o: vbband.F90 utilmpi.o iounit.o types.o converter.o bsplpot.o \
 +	initwfn.o bunpu.o fftgrid.h meshgen.o bandchrg.o \
 +	diag_hml.o xcf_types.o exchange.o util.o
 +vbstm.o: vbstm.F90 config90.h chainjob.o iounit.o util.o \
 +	types.o stmitgdos.o bsplpot.o makedd.o initlpt.o meshgen.o exchange.o \
-+	chkinput.o subr_input.o
++	chkinput.o subr_input.o ${ESMMNGOBJ}
 +wfn2chg.o: wfn2chg.F90 config90.h chainjob.o iounit.o util.o \
-+	types.o vbchrg.o bsplpot.o makedd.o meshgen.o chkinput.o subr_input.o
++	types.o vbchrg.o bsplpot.o makedd.o meshgen.o chkinput.o subr_input.o \
++	${ESMMNGOBJ}
 +stmitgdos.o: stmitgdos.F90 util.o sdoss.o bsplpot.o crgen.o \
 +	iounit.o diag_hml.o converter.o fftgrid.h meshgen.o
 +cgmrpt.o: cgmrpt.F90 config90.h chainjob.o util.o iounit.o engdffr.o \
 +	scfloop.o bsplpot.o makedd.o types.o doss.o initlpt.o initwfn.o meshgen.o \
 +	ewald.o linmin.o timeprof.o replica.o exchange.o \
-+	chkinput.o subr_input.o stropt_cnstr.o
++	chkinput.o subr_input.o stropt_cnstr.o ${ESMMNGOBJ}
 +inipot.o: inipot.F90 config90.h iounit.o bsplpot.o util.o xcf_types.o \
-+	replica.o chkinput.o subr_input.o subr_kpoint.o
++	replica.o chkinput.o subr_input.o subr_kpoint.o ${ESMMNGOBJ}
 +scfloop.o: scfloop.F90 zxtrap.o chainjob.o util.o doss.o types.o \
 +	bandchrg.o crgen.o makedd.o ioniclpot.o converter.o \
 +	diag_hml.o ldos.o prclpt.o meshgen.o timeprof.o utilmpi.o exchange.o
 +linmin.o: linmin.F90 chainjob.o scfloop.o engdffr.o bsplpot.o meshgen.o \
 +	ewald.o stropt_cnstr.o
-+ioniclpot.o: ioniclpot.F90 ${FFT3D_OBJ} util.o bsplpot.o potihxc.o fftgrid.h
++ioniclpot.o: ioniclpot.F90 ${FFT3D_OBJ} util.o bsplpot.o potihxc.o fftgrid.h \
++	${ESMMNGOBJ}
 +chainjob.o: chainjob.f90 iounit.o zxtrap.o util.o types.o meshgen.o bsplpot.o
 +bandchrg.o: bandchrg.F90 ${FFT3D_OBJ} types.o $(XMPI_OBJ) symchrg.o fftgrid.h \
 +	timeprof.o subr_kpoint.o
 +potihxc.o: potihxc.F90 ${FFT3D_OBJ} gga-wb.o ldaxc.o \
-+	fftgrid.h xcf_types.o timeprof.o
++	fftgrid.h xcf_types.o timeprof.o ${ESMMNGOBJ}
 +initwfn.o: initwfn.f90 util.o iounit.o converter.o meshgen.o
 +gga-wb.o: gga-wb.F90 ${XCOBJ} ${FFT3D_OBJ} fftgrid.h xcf_types.o timeprof.o
 +ldaxc.o: ldaxc.F90 ${XCOBJ} ${FFT3D_OBJ} fftgrid.h xcf_types.o timeprof.o
@@ -348,19 +557,19 @@ Makefile and config for debian system
 +	bsplpot.o utilmpi.o fftgrid.h timeprof.o xcf_types.o meshgen.o util.o
 +engdffr.o: engdffr.F90 util.o iounit.o $(FFT3D_OBJ) $(ARCH_OBJ) \
 +	bsplpot.o $(XMPI_OBJ) meshgen.o types.o converter.o exchange.o \
-+	xcf_types.o fftgrid.h
++	xcf_types.o fftgrid.h ${ESMMNGOBJ}
 +crgen.o: crgen.F90 $(FFT3D_OBJ) util.o bsplpot.o types.o $(XMPI_OBJ) symchrg.o \
 +	fftgrid.h timeprof.o
 +p10vb.o: p10vb.F iounit.o util.o
 +bsplpot.o: bspline.o ioqg-core.o makeqg.o util.o xcf_types.o iounit.o \
-+	subr_kpoint.o
++	subr_kpoint.o ${ESMGVOBJ}
 +initlpt.o: initlpt.F90 iounit.o util.o ioniclpot.o bsplpot.o atomicchrg.o \
 +	potihxc.o meshgen.o converter.o fftgrid.h
 +makedd.o: makedd.F90 util.o bsplpot.o types.o converter.o timeprof.o
 +bunpu.o: bunpu.F90 $(FFT3D_OBJ) types.o bsplpot.o crgen.o fftgrid.h
 +vbchrg.o: vbchrg.f90 bunpu.o converter.o types.o util.o nlprj.o symwfn.o \
 +	meshgen.o
-+ewald.o: ewald.F90 util.o bsplpot.o refforce-ewald.o timeprof.o
++ewald.o: ewald.F90 util.o bsplpot.o refforce-ewald.o timeprof.o ${ESMMNGOBJ}
 +doss.o: doss.f90 iounit.o meshgen.o
 +moldyn.o: moldyn.F90 types.o bsplpot.o iounit.o converter.o makedd.o \
 +	engdffr.o scfloop.o atomicchrg.o mdmuca.o meshgen.o initwfn.o \
@@ -369,7 +578,7 @@ Makefile and config for debian system
 +mdrpt.o: mdrpt.F90 config90.h chainjob.o util.o iounit.o types.o bsplpot.o \
 +	moldyn.o mdmuca.o \
 +	initlpt.o initwfn.o meshgen.o timeprof.o scfloop.o \
-+	replica.o exchange.o chkinput.o subr_input.o
++	replica.o exchange.o chkinput.o subr_input.o ${ESMMNGOBJ}
 +mdmuca.o: mdmuca.f90 bspline.o iounit.o replica.o
 +atomicchrg.o: atomicchrg.F90 bsplpot.o $(FFT3D_OBJ) fftgrid.h
 +sdoss.o: sdoss.f90 doss.o
@@ -417,26 +626,48 @@ Makefile and config for debian system
 +subr_input_nompi.o: subr_input.F90 util.o
 +	${FC} -DNO_MPI -o subr_input_nompi.o -c subr_input.F90
 +
++################## FOR ESM METHOD by M.Otani 2006/02/06####################
++################## Modified by Y.Ando 2011/01/21 ##########################
++esm_manage.o: esm_manage.F90 esm_gvar.o bsplpot.o iounit.o meshgen.o esm_debinfo.o esm_util.o esm_2d.o fftgrid.h
++esm_gvar.o: esm_gvar.F90
++esm_loc.o: esm_loc.F90 m_fft1d.o util.o esm_gvar.o
++esm_pot.o: esm_pot.F90 m_fft1d.o esm_gvar.o
++esm_ewald.o: esm_ewald.F90 esm_util.o esm_gvar.o
++esm_util.o: esm_util.F90 esm_gvar.o m_fft1d.o
++esm_2d.o: esm_2d.F90 esm_gvar.o esm_debinfo.o esm_util.o esm_loc.o timeprof.o esm_ewald.o esm_pot.o
++
 +xticonv: xticonv.F90 subr_input_nompi.o read_tappinput.o subr_fmtconv.o
 +	${FC} -o xticonv xticonv.F90 read_tappinput.o subr_input_nompi.o \
-+	subr_fmtconv.o util.o
++	subr_fmtconv.o util.o ${LDLIBS}
 +
 +strconv: strconv.F90 subr_fmtconv.o subr_readstr.o
-+	${FC} -o strconv strconv.F90 subr_fmtconv.o subr_readstr.o
++	${FC} -o strconv strconv.F90 subr_fmtconv.o subr_readstr.o ${LDLIBS}
 +
 +diffstr: diffstr.F90 subr_readstr.o
-+	${FC} -o diffstr diffstr.F90 subr_readstr.o
++	${FC} -o diffstr diffstr.F90 subr_readstr.o ${LDLIBS}
 +
 +iplstr: iplstr.F90 subr_readstr.o
-+	${FC} -o iplstr iplstr.F90 subr_readstr.o
++	${FC} -o iplstr iplstr.F90 subr_readstr.o ${LDLIBS}
 +
-+clean:
++cmpstr: cmpstr.F90 subr_readstr.o
++	${FC} -o cmpstr cmpstr.F90 subr_readstr.o ${LDLIBS}
++
++clean: esm_clean
 +	/bin/rm -f core *.o *~ *.bak *.orig TAGS *.rej *.mod *.log \
 +	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pefcos \
 +	a.out \
 +	pfft3ds.f90 fft3dsp.f90 fft3dsp_subr.f90 fft3duz.f90 fft3duz_subr.f90 \
 +	fftgrid.h mkl_dfti.f90 fftgrid-vx.h \
-+	xticonv strconv diffstr iplstr
++	xticonv strconv diffstr iplstr cmpstr
++
++################## FOR ESM METHOD by M.Otani 2006/02/06####################
++################## Modified by Y.Ando 2011/01/21 ##########################
++esm_clean:
++	/bin/rm -f esm_manage.mod \
++        esm_util.mod m_2d.mod m_loc.mod m_pot.mod esm_debinfo.o \
++        esm_gvar.o \
++        esm_util.o esm_manage.o esm_2d.o esm_loc.o \
++        esm_pot.o esm_ewald.o
 +
 +tgz:
 +	tar cf xTAPP.tar *.F *.f90 *.F90 config.h-dist \
@@ -448,10 +679,6 @@ Makefile and config for debian system
 +
 +.F.f:
 +	${CPP} -P ${DEFINES} $< | sed '/^ *$$/d' > $*.f
-+
-+install: default
-+	install -d $(DESTDIR)/usr/bin
-+	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos xticonv strconv diffstr iplstr $(DESTDIR)/usr/bin
 +
 +# Local Variables: ***
 +# mode:Makefile ***

@@ -1,3 +1,11 @@
+xtapp (140129-1) wheezy; urgency=low
+
+  * New upstream release
+  * Applied giounit patch
+  * Removed xtapp wrapper
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Sun, 02 Mar 2014 12:38:09 +0900
+
 xtapp (130919-3) wheezy; urgency=low
 
   * Added PDF version of documents.

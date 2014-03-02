@@ -1,0 +1,305 @@
+Patch for supporting I/O and unit association by environment variables
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,44 @@
++default %:
++	make $@ -C src
++
++default: doc/develop.pdf doc/example-c6h12.pdf doc/example-cu.pdf doc/formalism.pdf doc/inputformat.pdf doc/programs.pdf doc/tutorial.pdf
++
++clean: clean-doc
++
++clean-doc:
++	rm -f doc/*.aux doc/*.dvi doc/*.log doc/*.toc doc/*.pdf
++
++doc/develop.pdf:
++	(cd doc && platex --kanji=euc develop.tex)
++	(cd doc && platex --kanji=euc develop.tex)
++	(cd doc && dvipdfmx -o develop.pdf develop.dvi)
++
++doc/example-c6h12.pdf:
++	(cd doc && platex --kanji=euc example-c6h12.tex)
++	(cd doc && platex --kanji=euc example-c6h12.tex)
++	(cd doc && dvipdfmx -o example-c6h12.pdf example-c6h12.dvi)
++
++doc/example-cu.pdf:
++	(cd doc && platex --kanji=euc example-cu.tex)
++	(cd doc && platex --kanji=euc example-cu.tex)
++	(cd doc && dvipdfmx -o example-cu.pdf example-cu.dvi)
++
++doc/formalism.pdf:
++	(cd doc && platex --kanji=sjis formalism.tex)
++	(cd doc && platex --kanji=sjis formalism.tex)
++	(cd doc && dvipdfmx -o formalism.pdf formalism.dvi)
++
++doc/inputformat.pdf:
++	(cd doc && platex --kanji=euc inputformat.tex)
++	(cd doc && platex --kanji=euc inputformat.tex)
++	(cd doc && dvipdfmx -o inputformat.pdf inputformat.dvi)
++
++doc/programs.pdf:
++	(cd doc && platex --kanji=euc programs.tex)
++	(cd doc && platex --kanji=euc programs.tex)
++	(cd doc && dvipdfmx -o programs.pdf programs.dvi)
++
++doc/tutorial.pdf:
++	(cd doc && platex --kanji=euc tutorial.tex)
++	(cd doc && platex --kanji=euc tutorial.tex)
++	(cd doc && dvipdfmx -o tutorial.pdf tutorial.dvi)
+--- a/src/Makefile-dist
++++ b/src/Makefile-dist
+@@ -8,7 +8,7 @@
+ FC=mpif90
+ 
+ .SUFFIXES:
+-.SUFFIXES: .o .F .f .F90 .f90 .c
++.SUFFIXES: .o .F .f .F90 .f90 .c .C
+ 
+ default: inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos \
+ 	xticonv strconv diffstr iplstr cmpstr
+@@ -21,6 +21,8 @@
+ 	${FC} ${F90FLAGS} ${FFLAGS} -c $<
+ .c.o:
+ 	${CC} ${CFLAGS} -c $<
++.C.o:
++	${CXX} ${CXXFLAGS} -c $<
+ #-----------------------------------------------
+ 
+ ################################################################
+@@ -166,6 +168,35 @@
+ #FC_CIF = gfortran
+ #FFLAG_CIF = 
+ #--------------------------------
++#for x86_64 Debian Linux by S. Todo (2014.3)
++#
++#ARCH_OBJ = arch_dgemm.o giounit_open.o giounit_util.o
++#MDOBJ = mdunistd.o paraenv.o
++#DEFINES = -O3 ${GDEFS} -DINCONSISTENT_THREAD_COMP
++
++#FFLAGS = -O3 -fopenmp -msse3 -fno-inline-functions ${DEFINES} -I/usr/include
++#F77FLAGS =
++#F90FLAGS = -ffree-line-length-none
++#FOPTNON = -O0
++
++#LDFLAGS = -fopenmp
++#CFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
++#CXXFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
++
++#LIBLAPACK = -lfftw3_threads -llapack
++#LIBBLAS = -lblas
++#EXTRALIBS = -lstdc++
++
++#XMPI_OBJ = xmpi_univ.o
++#EIGSYSTM_OBJ = eigsystm-lapack.o
++#FFT3D_OBJ = fft3d_fftw.o
++#FFTGRID_H_SRC = fftgrid-scl-fftw.h
++
++#CC = gcc
++#CXX = g++
++#FC_CIF = gfortran
++#FFLAG_CIF = 
++#--------------------------------
+ # for K computer
+ #
+ #FC = mpifrtpx
+--- /dev/null
++++ b/src/giounit_open.C
+@@ -0,0 +1,32 @@
++/*****************************************************************************
++*
++* giounit: gfortran utility for file and logical unit assginment
++*
++* Copyright (C) 2013-2014 by Synge Todo <wistaria@comp-phys.org>
++*
++* Distributed under the Boost Software License, Version 1.0. (See accompanying
++* file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
++*
++*****************************************************************************/
++
++#include "giounit.h"
++
++GIOUNIT_OPEN(10)
++GIOUNIT_OPEN_UNFORMATTED(11)
++GIOUNIT_OPEN_UNFORMATTED(13)
++GIOUNIT_OPEN_UNFORMATTED(14)
++GIOUNIT_OPEN_UNFORMATTED(15)
++GIOUNIT_OPEN_UNFORMATTED(21)
++GIOUNIT_OPEN_UNFORMATTED(22)
++GIOUNIT_OPEN_UNFORMATTED(25)
++GIOUNIT_OPEN_UNFORMATTED(28)
++GIOUNIT_OPEN(34)
++GIOUNIT_OPEN_UNFORMATTED(40)
++GIOUNIT_OPEN(50)
++GIOUNIT_OPEN_UNFORMATTED(51)
++GIOUNIT_OPEN(55)
++GIOUNIT_OPEN_UNFORMATTED(70)
++GIOUNIT_OPEN_UNFORMATTED(73)
++GIOUNIT_OPEN_UNFORMATTED(74)
++GIOUNIT_OPEN_UNFORMATTED(96)
++GIOUNIT_OPEN(99)
+--- /dev/null
++++ b/src/giounit_util.F90
+@@ -0,0 +1,47 @@
++!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
++!
++! giounit: gfortran utility for file and logical unit assginment
++!
++! Copyright (C) 2013-2014 by Synge Todo <wistaria@comp-phys.org>
++!
++! Distributed under the Boost Software License, Version 1.0. (See accompanying
++! file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
++!
++!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
++
++#ifdef __GFORTRAN__
++
++subroutine giounit_open(unit, len, path) bind(C)
++  use iso_c_binding
++  implicit none
++  integer(c_int), intent(in), value :: unit, len
++  character(kind=c_char), intent(in) :: path(*)
++  integer :: i
++  character(len=256) :: p
++  do i = 1, len
++     p(i:i) = path(i)
++  end do
++  open(unit, file=p(1:len))
++end subroutine giounit_open
++
++subroutine giounit_open_unformatted(unit, len, path) bind(C)
++  use iso_c_binding
++  implicit none
++  integer(c_int), intent(in), value :: unit, len
++  character(kind=c_char), intent(in) :: path(*)
++  integer :: i
++  character(len=256) :: p
++  do i = 1, len
++     p(i:i) = path(i)
++  end do
++  open(unit, file=p(1:len), form="unformatted")
++end subroutine giounit_open_unformatted
++
++subroutine giounit_close(unit) bind(C)
++  use iso_c_binding
++  implicit none
++  integer(c_int), intent(in), value :: unit
++  close(unit)
++end subroutine giounit_close
++
++#endif
+--- /dev/null
++++ b/src/giounit.h
+@@ -0,0 +1,113 @@
++/*****************************************************************************
++*
++* giounit: gfortran utility for file and logical unit assginment
++*
++* Copyright (C) 2013-2014 by Synge Todo <wistaria@comp-phys.org>
++*
++* Distributed under the Boost Software License, Version 1.0. (See accompanying
++* file LICENSE_1_0.txt or copy at http://www.boost.org/LICENSE_1_0.txt)
++*
++*****************************************************************************/
++
++#ifndef GIOUNIT_H
++#define GIOUNIT_H
++
++#if defined(__GNUC__)
++
++#ifndef GIOUNIT_PREFIX
++#define GIOUNIT_PREFIX "FORT"
++#endif
++
++#ifndef GIOUNIT_BEGIN
++#define GIOUNIT_BEGIN 10
++#endif
++
++#ifndef GIOUNIT_END
++#define GIOUNIT_END 100
++#endif
++
++#include <cstdlib>
++#include <cstring>
++#include <iostream>
++#include <sstream>
++#include <string>
++#include <vector>
++
++extern "C" {
++
++void giounit_open(int unit, int len, const char *path);
++void giounit_open_unformatted(int unit, int len, const char *path);
++void giounit_close(int unit);
++
++}
++
++struct giounit_opener {
++  giounit_opener(unsigned int unit, bool formatted = true) : unit_(unit), opened_(false) {
++    std::ostringstream is;
++    is << GIOUNIT_PREFIX << unit_;
++    if (const char *val = std::getenv(is.str().c_str())) {
++      opened_ = true;
++      if (formatted) {
++        if (std::getenv("GIOUNIT_DEBUG"))
++          std::cerr << "giounit: opening \'" << val << "\' in formatted mode as unit "
++                    << unit << std::endl;
++        giounit_open(unit, std::strlen(val), val);
++      } else {
++        if (std::getenv("GIOUNIT_DEBUG"))
++          std::cerr << "giounit: opening \'" << val << "\' in unformatted mode as unit "
++                    << unit << std::endl;
++        giounit_open_unformatted(unit, std::strlen(val), val);
++      }
++    }
++  }
++  ~giounit_opener() {
++    if (opened_) {
++      if (std::getenv("GIOUNIT_DEBUG"))
++        std::cerr << "giounit: closing unit " << unit_ << std::endl;
++      giounit_close(unit_);
++    }
++  }
++  unsigned int unit_;
++  bool opened_;
++};
++
++struct giounit_scanner {
++  giounit_scanner() : openers_() {
++    if (std::getenv("GIOUNIT_DEBUG")) {
++      std::cerr << "giounit: giounit_scanner::giounit_scanner()\n"
++                << "giounit: GIOUNIT_PREFIX = " << GIOUNIT_PREFIX << std::endl
++                << "giounit: GIOUNIT_BEGIN = " << GIOUNIT_BEGIN << std::endl
++                << "giounit: GIOUNIT_END = " << GIOUNIT_END << std::endl;
++    }
++    for (unsigned int u = GIOUNIT_BEGIN; u < GIOUNIT_END; ++u)
++      openers_.push_back(new giounit_opener(u));
++  }
++  ~giounit_scanner() {
++    if (std::getenv("GIOUNIT_DEBUG"))
++      std::cerr << "giounit: giounit_scanner::~giounit_scanner()\n";
++    for (int i = 0; i < openers_.size(); ++i) delete openers_[i];
++  }
++  std::vector<giounit_opener*> openers_;
++};
++
++#else
++
++struct giounit_opener {
++  giounit_opener(unsigned int, bool = true) {}
++};
++  
++struct giounit_scanner {};
++  
++#endif // defined(__GNUC__)
++
++#define GIOUNIT_JOIN(X, Y) GIOUNIT_DO_JOIN(X, Y)
++#define GIOUNIT_DO_JOIN(X, Y) X##Y
++
++#define GIOUNIT_SCAN \
++  namespace { giounit_scanner scanner; }
++#define GIOUNIT_OPEN(unit) \
++  namespace { giounit_opener GIOUNIT_JOIN(opener_, __LINE__) (unit, true); }
++#define GIOUNIT_OPEN_UNFORMATTED(unit) \
++  namespace { giounit_opener GIOUNIT_JOIN(opener_, __LINE__) (unit, false); }
++  
++#endif // GIOUNIT_H
