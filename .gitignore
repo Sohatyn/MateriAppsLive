@@ -11,6 +11,7 @@ xtapp_*
 xtapp-util/conv-tapp3
 xtapp-util/fldtool
 xtapp-util/inputconv
+xtapp-util/minmaxband
 xtapp-util/mdtool
 xtapp-util/vbpef2gp-lsda
 xtapp-util/wfchg2pdos

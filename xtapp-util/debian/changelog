@@ -1,3 +1,10 @@
+xtapp-util (130919-1) wheezy; urgency=low
+
+  * New upstream release
+  * Changed installed directory from /usr/libexec/xtapp to /usr/bin
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Tue, 04 Mar 2014 06:45:31 +0900
+
 xtapp-util (130701-1) wheezy; urgency=low
 
   * Initial version of debian package

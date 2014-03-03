@@ -1,11 +1,12 @@
 Makefile for building Debian package
 --- /dev/null
 +++ b/Makefile
-@@ -0,0 +1,5 @@
+@@ -0,0 +1,6 @@
 +tools %:
 +	make $@ -C fldtool
 +	make $@ -C inputconv
 +	make $@ -C mdtool
++	make $@ -C minmaxband
 +	make $@ -C wfchg2pdos
 --- /dev/null
 +++ b/fldtool/Makefile
@@ -76,8 +77,8 @@ Makefile for building Debian package
 +	fftgrid.h
 +
 +install: tools
-+	install -d $(DESTDIR)/usr/libexec/xtapp
-+	install wfn2dx lpt2dx rho2dx rok2dx wfk2dx stm2dx rhomm lptmm wfn2ee $(DESTDIR)/usr/libexec/xtapp
++	install -d $(DESTDIR)/usr/bin
++	install wfn2dx lpt2dx rho2dx rok2dx wfk2dx stm2dx rhomm lptmm wfn2ee $(DESTDIR)/usr/bin
 +
 +# Local Variables: ***
 +# mode:Makefile ***
@@ -126,8 +127,8 @@ Makefile for building Debian package
 +	inputconv a.out
 +
 +install: tools
-+	install -d $(DESTDIR)/usr/libexec/xtapp
-+	install inputconv $(DESTDIR)/usr/libexec/xtapp
++	install -d $(DESTDIR)/usr/bin
++	install inputconv $(DESTDIR)/usr/bin
 +
 +# Local Variables: ***
 +# mode:Makefile ***
@@ -158,8 +159,8 @@ Makefile for building Debian package
  	scanmdlog tailmdlog a.out
 +
 +install: tools
-+	install -d $(DESTDIR)/usr/libexec/xtapp
-+	install scanmdlog tailmdlog $(DESTDIR)/usr/libexec/xtapp
++	install -d $(DESTDIR)/usr/bin
++	install scanmdlog tailmdlog $(DESTDIR)/usr/bin
 +
  # Local Variables: ***
  # mode:Makefile ***
@@ -209,9 +210,27 @@ Makefile for building Debian package
 +	ltzpdos wfchg2pdos a.out
 +
 +install: tools
-+	install -d $(DESTDIR)/usr/libexec/xtapp
-+	install ltzpdos wfchg2pdos $(DESTDIR)/usr/libexec/xtapp
++	install -d $(DESTDIR)/usr/bin
++	install ltzpdos wfchg2pdos $(DESTDIR)/usr/bin
 +
 +# Local Variables: ***
 +# mode:Makefile ***
 +# End:***
+--- a/minmaxband/Makefile
++++ b/minmaxband/Makefile
+@@ -17,10 +17,14 @@
+ minmaxband: minmaxband.o
+ 	${CC} ${CFLAGS} -o minmaxband minmaxband.o
+ 
+-clean:
++clean distclean:
+ 	/bin/rm -f core *.o *~ *.bak *.orig TAGS *.rej \
+ 	minmaxband a.out
+ 
++install: tools
++	install -d $(DESTDIR)/usr/bin
++	install minmaxband $(DESTDIR)/usr/bin
++
+ # Local Variables: ***
+ # mode:Makefile ***
+ # End:***
