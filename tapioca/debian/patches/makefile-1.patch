@@ -6,22 +6,24 @@ Compiler setting and installatoin
 +	make $@ -C src
 --- a/src/Makefile.inc
 +++ b/src/Makefile.inc
-@@ -1,9 +1,9 @@
+@@ -1,10 +1,10 @@
  ### for Cygwin/Windows and Qt4 with mingw
 -QT4    =  /usr/local/qt4
 -CC     =  g++-3 -mno-cygwin
 -CFLAGS = -O3 -Wall
--INCS   = -I$(QT4)/include
--LIBS   =  -L/usr/lib/mingw -L$(QT4)/lib -lQtCore4 -lQtGui4 -lQtOpenGL4 -lQtXml4 -lopengl32 -lglu32 -llapack -lblas -lg2c
+-INCS   = -I$(QT4)/include -I/usr/include/mingw
+-LIBS   =  -L$(QT4)/lib -lQtCore4 -lQtGui4 -lQtOpenGL4 -lQtXml4 -lopengl32 -lglu32 -L/usr/lib/mingw -llapack -lblas -lg2c -mwindows
+-ICON   =  icon.o
 +#QT4    =  /usr/local/qt4
 +#CC     =  g++-3 -mno-cygwin
 +#CFLAGS = -O3 -Wall
-+#INCS   = -I$(QT4)/include
-+#LIBS   =  -L/usr/lib/mingw -L$(QT4)/lib -lQtCore4 -lQtGui4 -lQtOpenGL4 -lQtXml4 -lopengl32 -lglu32 -llapack -lblas -lg2c
- # -mwindows
- ICON   =  icon.o
++#INCS   = -I$(QT4)/include -I/usr/include/mingw
++#LIBS   =  -L$(QT4)/lib -lQtCore4 -lQtGui4 -lQtOpenGL4 -lQtXml4 -lopengl32 -lglu32 -L/usr/lib/mingw -llapack -lblas -lg2c -mwindows
++#ICON   =  icon.o
  
-@@ -16,12 +16,12 @@
+ ### for Linux, SuSE
+ #QT4    =  /usr/lib64/qt4
+@@ -15,12 +15,12 @@
  #ICON   = 
  
  ### for Linux, debian 6
@@ -42,7 +44,7 @@ Compiler setting and installatoin
  #QT4    =  /usr/local/Trolltech/Qt-4.8.4
 --- a/src/Makefile
 +++ b/src/Makefile
-@@ -53,7 +53,7 @@
+@@ -57,7 +57,7 @@
  $(ICON): icon.rc icon.ico
  	windres.exe -i icon.rc -o icon.o
  
@@ -51,7 +53,7 @@ Compiler setting and installatoin
  	rm -f *.moc.cpp *.exe *.exe.stackdump *.o *~ *.bak $(TARGET)
  
  tgz:
-@@ -64,4 +64,10 @@
+@@ -68,4 +68,10 @@
  	touch Makefile.dep
  	makedepend -fMakefile.dep -Y -- *.cc 2> /dev/null
  
