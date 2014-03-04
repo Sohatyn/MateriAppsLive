@@ -6,6 +6,7 @@ README
 doc
 sample
 src
+tapioca_*
 tests
 xtapp_*
 xtapp-util/conv-tapp3

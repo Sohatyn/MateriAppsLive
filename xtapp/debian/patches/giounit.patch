@@ -115,7 +115,7 @@ Patch for supporting I/O and unit association by environment variables
  # End:***
 --- /dev/null
 +++ b/src/giounit_open.C
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,37 @@
 +/*****************************************************************************
 +*
 +* giounit: gfortran utility for file and logical unit assginment
@@ -139,6 +139,11 @@ Patch for supporting I/O and unit association by environment variables
 +GIOUNIT_OPEN_UNFORMATTED(25)
 +GIOUNIT_OPEN_UNFORMATTED(28)
 +GIOUNIT_OPEN(34)
++GIOUNIT_OPEN(35)
++GIOUNIT_OPEN(36)
++GIOUNIT_OPEN(37)
++GIOUNIT_OPEN(38)
++GIOUNIT_OPEN(39)
 +GIOUNIT_OPEN_UNFORMATTED(40)
 +GIOUNIT_OPEN(50)
 +GIOUNIT_OPEN_UNFORMATTED(51)
