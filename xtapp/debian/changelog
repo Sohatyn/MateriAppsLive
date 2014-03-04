@@ -1,3 +1,9 @@
+xtapp (140129-3) wheezy; urgency=low
+
+  * Fixed check/sample input/script
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Fri, 07 Mar 2014 16:07:10 +0900
+
 xtapp (140129-2) wheezy; urgency=low
 
   * Fixed giounit_open.C

@@ -752,3 +752,55 @@
 +  parameter (nopt=6)
 +!
 +! -- end of config90.h
+--- a/sample/example-cu/cu.cg
++++ b/sample/example-cu/cu.cg
+@@ -1,6 +1,6 @@
+ # symmetry data
+ &symmetry
+-symmetry_format = reciprocal,
++symmetry_format = "reciprocal",
+ number_sym_op = 48
+ /
+    1   0   0   0   1   0   0   0   1   0   0   0
+@@ -58,7 +58,7 @@
+ 
+ # k-points data
+ &smpl_kpt
+-dos_mode = COS,
++dos_mode = "COS",
+ dos_mesh = 32, 32, 32,
+ bz_mesh = 32,
+ bz_number_tile = 1
+@@ -80,7 +80,7 @@
+ initial_lpt = 2,
+ scf_number_iter_1st = 40,
+ scf_number_iter = 40,
+-xc_type = PBE,
++xc_type = "PBE",
+ control_uptime = 7200.0
+ /
+ 
+--- /dev/null
++++ b/sample/example-cu/cu.sh
+@@ -0,0 +1,21 @@
++#!/bin/sh
++
++set -x
++
++XTAPP_PS_DIR=/usr/share/xtapp/pseudo-potential/PS
++
++# export GIOUNIT_DEBUG=1
++
++rm -f fort.* *.log cu.*.ee.dx cu.lpt cu.rho cu.wfn cu.str
++export FORT10=cu.cg
++export FORT28=$XTAPP_PS_DIR/ps-Cu.ichr
++export FORT34=$XTAPP_PS_DIR/ps-Cu
++time inipot > cu-inipot.log
++
++export FORT11=cu.lpt
++export FORT25=cu.rho
++export FORT96=cu.wfn
++export FORT99=cu.str
++time cgmrpt > cu-cgmrpt.log
++
++time wfn2ee cu '1 1 0' '1 0 1' '0 1 1' '-16 -16 -16' '32 32 32'
