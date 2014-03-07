@@ -1,1 +1,1 @@
-Branch for Machikaneyama Setup
+Branch for MachKKR Debian package
