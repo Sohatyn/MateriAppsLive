@@ -1,0 +1,10 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: machkkr
+Source: <http://kkr.phys.sci.osaka-u.ac.jp>
+
+Files: *
+License:
+ This MachKKR binary package is built and distributed for trial use on
+ MateriApps LIVE!  For extensive use or production run, please register
+ yourself at the MachKKR official web site and use the recent official
+ source code.
