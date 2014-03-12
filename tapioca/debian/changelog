@@ -1,3 +1,9 @@
+tapioca (1.4.2-2) wheezy; urgency=low
+
+  * Added missing config files
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Wed, 12 Mar 2014 13:36:33 +0900
+
 tapioca (1.4.2-1) wheezy; urgency=low
 
   * New upstream release
