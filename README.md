@@ -1,1 +1,1 @@
-Branch for MachKKR Debian package
+Branch for AkaiKKR Debian package

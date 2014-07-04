@@ -1,4 +1,4 @@
-Source: machkkr
+Source: akaikkr
 Section: non-free
 Priority: extra
 Maintainer: Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>
@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.3
 Homepage: <http://kkr.phys.sci.osaka-u.ac.jp>
 
-Package: machkkr
+Package: akaikkr
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: MachKKR (previously called as AkaiKKR or Machikaneyama2002)
+Description: AkaiKKR (previously called as Machikaneyama2002)
