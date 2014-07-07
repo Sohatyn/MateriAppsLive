@@ -1,3 +1,9 @@
+xtapp (140129-5) wheezy; urgency=low
+
+  * Inported patch for src/moldyn.F90
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Mon, 07 Jul 2014 15:04:54 +0900
+
 xtapp (140129-4) wheezy; urgency=low
 
   * Include sample OpenDX networks in /usr/share/xtapp/opendx
