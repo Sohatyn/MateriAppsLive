@@ -1,3 +1,9 @@
+akaikkr (20140905-1) wheezy; urgency=low
+
+  * Update upstream to version 20140905 (supported OpenMP parallelization)
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Mon, 15 Sep 2014 15:58:28 +0900
+
 akaikkr (20130914-1) wheezy; urgency=low
 
   * Initial debian package for AkaiKKR (previously known as Machikanayama2002)
