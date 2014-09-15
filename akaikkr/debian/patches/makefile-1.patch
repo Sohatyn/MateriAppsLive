@@ -25,7 +25,7 @@
  
  program = specx
 +utility = fmg
-+prefix = /usr/local
++DESTDIR = /usr/local
  objs = \
  source/$(program).o \
  source/spmain.o \
@@ -48,12 +48,12 @@
  	$(fort) $(flag) -o $@ $<
 +
 +install: $(program) $(utility) gpd
-+	mkdir -p $(prefix)/bin $(prefix)/share/machikaneyama/in $(prefix)/share/machikaneyama/util
-+	cp $(program) $(utility) gpd $(prefix)/bin
-+	chmod 755 $(prefix)/bin/$(program) $(prefix)/share/machikaneyama/in $(prefix)/share/machikaneyama/util
-+	cp -p in/* $(prefix)/share/machikaneyama/in
-+	cp -p util/* $(prefix)/share/machikaneyama/util
-+	chmod 644 $(prefix)/share/machikaneyama/in/* $(prefix)/share/machikaneyama/util/*
++	mkdir -p $(DESTDIR)/bin $(DESTDIR)/share/akaikkr/in $(DESTDIR)/share/akaikkr/util
++	cp $(program) $(utility) gpd $(DESTDIR)/bin
++	chmod 755 $(DESTDIR)/bin/$(program) $(DESTDIR)/share/akaikkr/in $(DESTDIR)/share/akaikkr/util
++	cp -p in/* $(DESTDIR)/share/akaikkr/in
++	cp -p util/* $(DESTDIR)/share/akaikkr/util
++	chmod 644 $(DESTDIR)/share/akaikkr/in/* $(DESTDIR)/share/akaikkr/util/*
 +clean:
 +	rm -f $(program) $(utility) gpd source/*.o
 +
