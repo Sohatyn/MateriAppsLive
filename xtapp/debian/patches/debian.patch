@@ -1,6 +1,6 @@
 --- a/src/Makefile-dist
 +++ b/src/Makefile-dist
-@@ -51,35 +51,35 @@
+@@ -52,35 +52,35 @@
  #--------------------------------
  # for Intel Linux and Intel Fortran Compiler 11.0
  #
@@ -46,7 +46,7 @@
  #
  # for single-thread
  ##LIBLAPACK = -lmkl_lapack95_lp64 # for composerxe-2011
-@@ -99,36 +99,36 @@
+@@ -100,36 +100,36 @@
  #	-lgdrdgemm-ovl -L $(GDRBASEDIR)/gdrtb3/singlibMC_tb4 \
  #	-lsing -L $(GDRBASEDIR)/gdrtb3/hibutil -lhib
  
@@ -98,9 +98,9 @@
 +#FC_CIF = ifort
 +#FFLAG_CIF = 
  #--------------------------------
- #for AMD64 Debian Linux and gfortran-4.4.5
- #with openmpi-1.4.3
-@@ -170,32 +170,32 @@
+ #for x86_64 Debian Linux by S. Todo (2014.3)
+ #
+@@ -167,32 +167,32 @@
  #--------------------------------
  #for x86_64 Debian Linux by S. Todo (2014.3)
  #
@@ -155,7 +155,7 @@
  #--------------------------------
  # for K computer
  #
-@@ -264,11 +264,11 @@
+@@ -261,11 +261,11 @@
  #SCGDGOBJ = dvdsnmp.o hploc.o nlprj.o rotwfn.o sorthcl.o \
  #	exchange.o exchange_kern_cuda.o ${EIGSYSTM_OBJ}
  # for AMD GPU
@@ -171,18 +171,18 @@
  #==========================================================
  ################## FOR ESM METHOD by M.Otani 2006/02/06####################
  ################## Modified by Y.Ando 2011/01/21 ##########################
-@@ -476,7 +476,7 @@
- cmpstr: cmpstr.F90 subr_readstr.o
- 	${FC} -o cmpstr cmpstr.F90 subr_readstr.o ${LDLIBS}
+@@ -505,7 +505,7 @@
+ tetrapdos: tetrapdos.F90 subr_tetra.o
+ 	${FC} -o tetrapdos tetrapdos.F90 subr_tetra.o ${LDLIBS}
  
 -clean: esm_clean
 +clean distclean: esm_clean
  	/bin/rm -f core *.o *~ *.bak *.orig TAGS *.rej *.mod *.log \
- 	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pefcos \
- 	a.out \
+ 	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pe2dos tetrapdos \
+ 	hmatr2bnd \
 --- /dev/null
 +++ b/src/Makefile
-@@ -0,0 +1,513 @@
+@@ -0,0 +1,543 @@
 +# Copyright (c) 1983-2000 TAPP Consortium
 +# Copyright (c) 2000-2014 Yoshihide Yoshimoto
 +######################################################################
@@ -193,10 +193,11 @@
 +FC=mpif90
 +
 +.SUFFIXES:
-+.SUFFIXES: .o .F .f .F90 .f90 .c .C
++.SUFFIXES: .o .F .f .F90 .f90 .c .cpp
 +
-+default: inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos \
-+	xticonv strconv diffstr iplstr cmpstr
++default: inipot cgmrpt mdrpt vbpef vbstm wfn2chg wannier pefcos \
++	xticonv strconv diffstr iplstr cmpstr pe2dos tetrapdos \
++	hmatr2bnd
 +
 +.F.o:
 +	${FC} ${F77FLAGS} ${FFLAGS} -c $<
@@ -206,7 +207,7 @@
 +	${FC} ${F90FLAGS} ${FFLAGS} -c $<
 +.c.o:
 +	${CC} ${CFLAGS} -c $<
-+.C.o:
++.cpp.o:
 +	${CXX} ${CXXFLAGS} -c $<
 +#-----------------------------------------------
 +
@@ -315,41 +316,37 @@
 +#FC_CIF = ifort
 +#FFLAG_CIF = 
 +#--------------------------------
-+#for AMD64 Debian Linux and gfortran-4.4.5
-+#with openmpi-1.4.3
-+#with fftw-3.3.3
-+#do not use OpenMP
++#for x86_64 Debian Linux by S. Todo (2014.3)
 +#
++#ARCH_OBJ = arch_dgemm.o giounit_open.o giounit_util.o
 +#MDOBJ = mdunistd.o paraenv.o
 +#
 +# -DINCONSISTENT_THREAD_COMP
 +#    when thread computing is inconsistent, define this
 +#DEFINES = -O3 ${GDEFS} -DINCONSISTENT_THREAD_COMP
 +
-+#FFLAGS = ${DEFINES} -I /usr/local/include
++#FFLAGS = -O3 -fopenmp -msse3 -fno-inline-functions ${DEFINES} -I/usr/include
 +#F77FLAGS =
 +#F90FLAGS = -ffree-line-length-none
 +#FOPTNON = -O0
 +
-+#LDFLAGS = 
-+#CFLAGS = 
-+#
-+#LIBLAPACK = -L /usr/local/lib -lfftw3 -llapack
-+#LIBBLAS = -lblas
-+#
++#LDFLAGS = -fopenmp
++#CFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
++#CXXFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
 +
-+#ARCH_OBJ = arch_univ.o
++#LIBLAPACK = -lfftw3_threads -llapack
++#LIBBLAS = -lblas
++#EXTRALIBS = -lstdc++
 +
 +#XMPI_OBJ = xmpi_univ.o
-+
 +##EIGSYSTM_OBJ = eigsystm.o
 +#EIGSYSTM_OBJ = eigsystm-lapack.o
 +##EIGSYSTM_OBJ = eigsystm-scalapack.o
-+
 +#FFT3D_OBJ = fft3d_fftw.o
 +#FFTGRID_H_SRC = fftgrid-scl-fftw.h
 +
 +#CC = gcc
++#CXX = g++
 +#FC_CIF = gfortran
 +#FFLAG_CIF = 
 +#--------------------------------
@@ -435,7 +432,7 @@
 +#pfft3duz.o: pfft3duz_subr_hpcace.o
 +
 +# avoiding BUGs of the compiler
-+#p2s.o: p2s.F util.o
++#p2s.o: p2s.F util.o subr_tetra.o
 +#	${FC} -c ${DEFINES} -O1 p2s.F
 +#doss.o: doss.f90 iounit.o meshgen.o
 +#	${FC} -c ${DEFINES} -O1 doss.f90
@@ -471,36 +468,49 @@
 +XCOBJ= xc-pbe.o xc-pbesol.o xc-pw91.o xc-ldapw92.o xc-pbe0.o xc-b3lyp.o
 +
 +COMMONOBJ = types.o xcf_types.o bsplpot.o bspline.o \
-+	diag_hml.o $(FFT3D_OBJ) \
++	$(FFT3D_OBJ) \
 +	bandchrg.o symchrg.o ioqg-core.o ldaxc.o \
-+	gga-wb.o ${XCOBJ} potihxc.o initwfn.o p10vb.o subrpot.o makedd.o makeqg.o \
++	gga-wb.o ${XCOBJ} initwfn.o p10vb.o subrpot.o makedd.o makeqg.o \
 +	util.o converter.o symutil.o chkinput.o \
-+	iounit.o utilmpi.o ${SCGDGOBJ} symwfn.o $(ARCH_OBJ) \
++	iounit.o utilmpi.o symwfn.o $(ARCH_OBJ) \
 +	$(XMPI_OBJ) ${MDOBJ} timeprof.o \
 +	subr_input.o read_tappinput.o subr_kpoint.o
 +
 +CGMRPTOBJ = cgmrpt.o linmin.o ewald.o refforce-ewald.o scfloop.o zxtrap.o \
 +	engdffr.o crgen.o ioniclpot.o \
-+	chainjob.o doss.o p2s.o initlpt.o atomicchrg.o ${COMMONOBJ} \
-+	ldos.o prclpt.o poisson.o sdoss.o p2d.o meshgen.o replica.o \
-+	stropt_cnstr.o ${ESMMODOBJ}
++	chainjob.o doss.o p2s.o initlpt.o atomicchrg.o ${COMMONOBJ} potihxc.o \
++	${SCGDGOBJ} diag_hml.o ldos.o prclpt.o poisson.o sdoss.o p2d.o \
++	meshgen.o replica.o stropt_cnstr.o ${ESMMODOBJ} dftd2.o \
++	dftd3_sg.o dftd3/dftd3.o dftd3/copyc6.o \
++	subr_tetra.o
 +MDRPTOBJ = mdrpt.o moldyn.o ewald.o refforce-ewald.o scfloop.o zxtrap.o \
 +	engdffr.o crgen.o ioniclpot.o \
 +	chainjob.o doss.o p2s.o initlpt.o atomicchrg.o mdmuca.o \
-+	${COMMONOBJ} meshgen.o \
-+	ldos.o prclpt.o poisson.o sdoss.o p2d.o replica.o ${ESMMODOBJ}
++	${COMMONOBJ} potihxc.o ${SCGDGOBJ} diag_hml.o \
++	meshgen.o \
++	ldos.o prclpt.o poisson.o sdoss.o p2d.o replica.o ${ESMMODOBJ} \
++	dftd2.o dftd3_sg.o dftd3/dftd3.o dftd3/copyc6.o \
++	subr_tetra.o
 +INIPOTOBJ = inipot.o ${COMMONOBJ} replica.o ${ESMMODOBJ}
 +VBPEFOBJ  = vbpef.o vbband.o bunpu.o crgen.o ${COMMONOBJ} \
++	potihxc.o ${SCGDGOBJ} diag_hml.o \
 +	initlpt.o ioniclpot.o atomicchrg.o meshgen.o \
 +	chainjob.o zxtrap.o ${ESMMODOBJ}
 +VBSTMOBJ = vbstm.o stmitgdos.o sdoss.o doss.o p2s.o p2d.o chainjob.o \
 +	initlpt.o crgen.o zxtrap.o ioniclpot.o \
-+	atomicchrg.o ${COMMONOBJ} meshgen.o ${ESMMODOBJ}
++	atomicchrg.o ${COMMONOBJ} potihxc.o ${SCGDGOBJ} \
++	diag_hml.o meshgen.o ${ESMMODOBJ} \
++	subr_tetra.o
 +WFN2CHGOBJ = wfn2chg.o vbchrg.o chainjob.o \
-+	crgen.o zxtrap.o bunpu.o ${COMMONOBJ} meshgen.o ${ESMMODOBJ}
++	crgen.o zxtrap.o bunpu.o ${COMMONOBJ} nlprj.o meshgen.o ${ESMMODOBJ}
++WANNIEROBJ = wannier.o calcwannier.o chainjob.o zxtrap.o wannier_metal.o \
++	${COMMONOBJ} meshgen.o ${ESMMODOBJ}
 +PEFCOSOBJ  = pefcos.o ${MDOBJ} util.o \
 +	subr_input.o read_tappinput.o chainjob.o xcf_types.o zxtrap.o \
-+	timeprof.o
++	timeprof.o iounit.o
++PE2DOSOBJ  = pe2dos.o ${MDOBJ} util.o subr_tetra.o p2s.o iounit.o
++HMATR2BNDOBJ  = hmatr2bnd.o ${MDOBJ} util.o wannier_util.o \
++	subr_input.o read_tappinput.o chainjob.o zxtrap.o timeprof.o iounit.o
 +
 +inipot: ${INIPOTOBJ}
 +	${FC} ${LDFLAGS} -o $@ ${INIPOTOBJ} ${LDLIBS}
@@ -520,11 +530,17 @@
 +wfn2chg: ${WFN2CHGOBJ}
 +	${FC} ${LDFLAGS} -o $@ ${WFN2CHGOBJ} ${LDLIBS}
 +
++wannier: ${WANNIEROBJ}
++	${FC} ${LDFLAGS} -o $@ ${WANNIEROBJ} ${LDLIBS}
++
 +pefcos: ${PEFCOSOBJ}
 +	${FC} ${LDFLAGS} -o $@ ${PEFCOSOBJ} ${LDLIBS}
 +
-+pdos: pdos.o
-+	${FC} ${LDFLASG} -o $@ pdos.o ${LDLIBS}
++pe2dos: ${PE2DOSOBJ}
++	${FC} ${LDFLAGS} -o $@ ${PE2DOSOBJ} ${LDLIBS}
++
++hmatr2bnd: ${HMATR2BNDOBJ}
++	${FC} ${LDFLAGS} -o $@ ${HMATR2BNDOBJ} ${LDLIBS}
 +
 +pefcos.o: pefcos.F subr_input.o chainjob.o util.o config.h
 +vbpef.o: vbpef.F90 config90.h util.o iounit.o vbband.o \
@@ -539,6 +555,10 @@
 +wfn2chg.o: wfn2chg.F90 config90.h chainjob.o iounit.o util.o \
 +	types.o vbchrg.o bsplpot.o makedd.o meshgen.o chkinput.o subr_input.o \
 +	${ESMMNGOBJ}
++wannier.o: wannier.F90 config90.h chainjob.o iounit.o util.o \
++	types.o bsplpot.o meshgen.o chkinput.o subr_input.o calcwannier.o
++wannier_metal.o: wannier_metal.F90 types.o meshgen.o \
++	fftgrid.h ${FFT3D_OBJ} util.o
 +stmitgdos.o: stmitgdos.F90 util.o sdoss.o bsplpot.o crgen.o \
 +	iounit.o diag_hml.o converter.o fftgrid.h meshgen.o
 +cgmrpt.o: cgmrpt.F90 config90.h chainjob.o util.o iounit.o engdffr.o \
@@ -547,6 +567,9 @@
 +	chkinput.o subr_input.o stropt_cnstr.o ${ESMMNGOBJ}
 +inipot.o: inipot.F90 config90.h iounit.o bsplpot.o util.o xcf_types.o \
 +	replica.o chkinput.o subr_input.o subr_kpoint.o ${ESMMNGOBJ}
++pe2dos.o: pe2dos.F90 subr_tetra.o
++hmatr2bnd.o: hmatr2bnd.F90 subr_input.o chainjob.o util.o wannier_util.o \
++	config90.h
 +scfloop.o: scfloop.F90 zxtrap.o chainjob.o util.o doss.o types.o \
 +	bandchrg.o crgen.o makedd.o ioniclpot.o converter.o \
 +	diag_hml.o ldos.o prclpt.o meshgen.o timeprof.o utilmpi.o exchange.o
@@ -566,7 +589,7 @@
 +	bsplpot.o utilmpi.o fftgrid.h timeprof.o xcf_types.o meshgen.o util.o
 +engdffr.o: engdffr.F90 util.o iounit.o $(FFT3D_OBJ) $(ARCH_OBJ) \
 +	bsplpot.o $(XMPI_OBJ) meshgen.o types.o converter.o exchange.o \
-+	xcf_types.o fftgrid.h ${ESMMNGOBJ}
++	xcf_types.o fftgrid.h ${ESMMNGOBJ} dftd2.o dftd3_sg.o
 +crgen.o: crgen.F90 $(FFT3D_OBJ) util.o bsplpot.o types.o $(XMPI_OBJ) symchrg.o \
 +	fftgrid.h timeprof.o
 +p10vb.o: p10vb.F iounit.o util.o
@@ -578,6 +601,7 @@
 +bunpu.o: bunpu.F90 $(FFT3D_OBJ) types.o bsplpot.o crgen.o fftgrid.h
 +vbchrg.o: vbchrg.f90 bunpu.o converter.o types.o util.o nlprj.o symwfn.o \
 +	meshgen.o
++calcwannier.o: calcwannier.f90 types.o subr_kpoint.o meshgen.o wannier_metal.o
 +ewald.o: ewald.F90 util.o bsplpot.o refforce-ewald.o timeprof.o ${ESMMNGOBJ}
 +doss.o: doss.f90 iounit.o meshgen.o
 +moldyn.o: moldyn.F90 types.o bsplpot.o iounit.o converter.o makedd.o \
@@ -597,11 +621,13 @@
 +prclpt.o: prclpt.F90 util.o poisson.o $(FFT3D_OBJ) symchrg.o potihxc.o
 +timeprof.o: timeprof.F90 util.o
 +zxtrap.o: zxtrap.f90 timeprof.o
-+p2s.o: p2s.F util.o
++p2s.o: p2s.F util.o subr_tetra.o
 +chkinput.o: chkinput.f90 symutil.o
-+read_tappinput.o: read_tappinput.f90 chainjob.o xcf_types.o
-+subr_input.o: subr_input.F90 read_tappinput.o util.o
++read_tappinput.o: read_tappinput.f90 chainjob.o xcf_types.o calcwannier.o
++subr_input.o: subr_input.F90 read_tappinput.o util.o calcwannier.o
 +utilmpi.o: utilmpi.F90 timeprof.o
++dftd2.o: dftd2.F90 util.o bsplpot.o
++dftd3_sg.o: dftd3_sg.F90 util.o bsplpot.o
 +
 +hploc.o: hploc.F90 $(FFT3D_OBJ) fftgrid.h timeprof.o
 +nlprj.o: nlprj.f90 util.o $(XMPI_OBJ) $(ARCH_OBJ) bsplpot.o timeprof.o
@@ -647,7 +673,7 @@
 +
 +xticonv: xticonv.F90 subr_input_nompi.o read_tappinput.o subr_fmtconv.o
 +	${FC} -o xticonv xticonv.F90 read_tappinput.o subr_input_nompi.o \
-+	subr_fmtconv.o util.o ${LDLIBS}
++	subr_fmtconv.o util.o iounit.o ${LDLIBS}
 +
 +strconv: strconv.F90 subr_fmtconv.o subr_readstr.o
 +	${FC} -o strconv strconv.F90 subr_fmtconv.o subr_readstr.o ${LDLIBS}
@@ -661,9 +687,13 @@
 +cmpstr: cmpstr.F90 subr_readstr.o
 +	${FC} -o cmpstr cmpstr.F90 subr_readstr.o ${LDLIBS}
 +
++tetrapdos: tetrapdos.F90 subr_tetra.o
++	${FC} -o tetrapdos tetrapdos.F90 subr_tetra.o ${LDLIBS}
++
 +clean distclean: esm_clean
 +	/bin/rm -f core *.o *~ *.bak *.orig TAGS *.rej *.mod *.log \
-+	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pefcos \
++	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pe2dos tetrapdos \
++	hmatr2bnd \
 +	a.out \
 +	pfft3ds.f90 fft3dsp.f90 fft3dsp_subr.f90 fft3duz.f90 fft3duz_subr.f90 \
 +	fftgrid.h mkl_dfti.f90 fftgrid-vx.h \
@@ -752,34 +782,6 @@
 +  parameter (nopt=6)
 +!
 +! -- end of config90.h
---- a/sample/example-cu/cu.cg
-+++ b/sample/example-cu/cu.cg
-@@ -1,6 +1,6 @@
- # symmetry data
- &symmetry
--symmetry_format = reciprocal,
-+symmetry_format = "reciprocal",
- number_sym_op = 48
- /
-    1   0   0   0   1   0   0   0   1   0   0   0
-@@ -58,7 +58,7 @@
- 
- # k-points data
- &smpl_kpt
--dos_mode = COS,
-+dos_mode = "COS",
- dos_mesh = 32, 32, 32,
- bz_mesh = 32,
- bz_number_tile = 1
-@@ -80,7 +80,7 @@
- initial_lpt = 2,
- scf_number_iter_1st = 40,
- scf_number_iter = 40,
--xc_type = PBE,
-+xc_type = "PBE",
- control_uptime = 7200.0
- /
- 
 --- /dev/null
 +++ b/sample/example-cu/cu.sh
 @@ -0,0 +1,21 @@

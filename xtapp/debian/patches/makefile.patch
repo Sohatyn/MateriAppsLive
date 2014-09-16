@@ -1,0 +1,96 @@
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,44 @@
++default %:
++	make $@ -C src
++
++default: doc/develop.pdf doc/example-c6h12.pdf doc/example-cu.pdf doc/formalism.pdf doc/inputformat.pdf doc/programs.pdf doc/tutorial.pdf
++
++clean distclean: clean-doc
++
++clean-doc:
++	rm -f doc/*.aux doc/*.dvi doc/*.log doc/*.toc doc/*.pdf
++
++doc/develop.pdf:
++	(cd doc && platex --kanji=euc develop.tex)
++	(cd doc && platex --kanji=euc develop.tex)
++	(cd doc && dvipdfmx -o develop.pdf develop.dvi)
++
++doc/example-c6h12.pdf:
++	(cd doc && platex --kanji=euc example-c6h12.tex)
++	(cd doc && platex --kanji=euc example-c6h12.tex)
++	(cd doc && dvipdfmx -o example-c6h12.pdf example-c6h12.dvi)
++
++doc/example-cu.pdf:
++	(cd doc && platex --kanji=euc example-cu.tex)
++	(cd doc && platex --kanji=euc example-cu.tex)
++	(cd doc && dvipdfmx -o example-cu.pdf example-cu.dvi)
++
++doc/formalism.pdf:
++	(cd doc && platex --kanji=sjis formalism.tex)
++	(cd doc && platex --kanji=sjis formalism.tex)
++	(cd doc && dvipdfmx -o formalism.pdf formalism.dvi)
++
++doc/inputformat.pdf:
++	(cd doc && platex --kanji=euc inputformat.tex)
++	(cd doc && platex --kanji=euc inputformat.tex)
++	(cd doc && dvipdfmx -o inputformat.pdf inputformat.dvi)
++
++doc/programs.pdf:
++	(cd doc && platex --kanji=euc programs.tex)
++	(cd doc && platex --kanji=euc programs.tex)
++	(cd doc && dvipdfmx -o programs.pdf programs.dvi)
++
++doc/tutorial.pdf:
++	(cd doc && platex --kanji=euc tutorial.tex)
++	(cd doc && platex --kanji=euc tutorial.tex)
++	(cd doc && dvipdfmx -o tutorial.pdf tutorial.dvi)
+--- a/src/Makefile-dist
++++ b/src/Makefile-dist
+@@ -165,6 +165,35 @@
+ #FC_CIF = gfortran
+ #FFLAG_CIF = 
+ #--------------------------------
++#for x86_64 Debian Linux by S. Todo (2014.3)
++#
++#ARCH_OBJ = arch_dgemm.o giounit_open.o giounit_util.o
++#MDOBJ = mdunistd.o paraenv.o
++#DEFINES = -O3 ${GDEFS} -DINCONSISTENT_THREAD_COMP
++
++#FFLAGS = -O3 -fopenmp -msse3 -fno-inline-functions ${DEFINES} -I/usr/include
++#F77FLAGS =
++#F90FLAGS = -ffree-line-length-none
++#FOPTNON = -O0
++
++#LDFLAGS = -fopenmp
++#CFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
++#CXXFLAGS = -fopenmp -O3 -fno-inline-functions -I/usr/include
++
++#LIBLAPACK = -lfftw3_threads -llapack
++#LIBBLAS = -lblas
++#EXTRALIBS = -lstdc++
++
++#XMPI_OBJ = xmpi_univ.o
++#EIGSYSTM_OBJ = eigsystm-lapack.o
++#FFT3D_OBJ = fft3d_fftw.o
++#FFTGRID_H_SRC = fftgrid-scl-fftw.h
++
++#CC = gcc
++#CXX = g++
++#FC_CIF = gfortran
++#FFLAG_CIF = 
++#--------------------------------
+ # for K computer
+ #
+ #FC = mpifrtpx
+@@ -505,6 +534,10 @@
+ .F.f:
+ 	${CPP} -P ${DEFINES} $< | sed '/^ *$$/d' > $*.f
+ 
++install: default
++	install -d $(DESTDIR)/usr/bin
++	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos xticonv strconv diffstr iplstr cmpstr $(DESTDIR)/usr/bin
++
+ # Local Variables: ***
+ # mode:Makefile ***
+ # End:***
