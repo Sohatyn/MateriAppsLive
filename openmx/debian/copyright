@@ -1,0 +1,49 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: OpenMX
+Upstream-Contact: Taisuke Ozaki
+ Present (15/May/2013) official address
+ .
+ Japan Advanced Institute of Science and Technology (JAIST)
+ Asahidai 1-1, Nomi, Ishikawa 923-1292, Japan
+ .
+ e-mail: <t-ozaki@jaist.ac.jp>
+Source: http://www.openmx-square.org/download.html
+
+Files: *
+Copyright: 2002-2013, Taisuke Ozaki
+           Partial Copyright 2002-2013 goes to Hiori Kino, Myung Joon Han,
+           Jaejun Yu, Fumiyuki Ishii, Hongming Weng, Kiyoyuki Terakura,
+           T.Ohwaki and M.Otani
+License: GPL-2+
+
+Files: DFT_DATA13/*
+Copyright: Taisuke Ozaki
+License: GPL-2+
+Comment: See also http://www.jaist.ac.jp/~t-ozaki/vps_pao2013/.
+
+Files: debian/*
+Copyright: 2007, Ondrej Certik <ondrej@certik.cz>
+           2007-2011, Debian Science Team <debian-science-maintainers@l.a.d.o>
+           2013, Daniel Leidert <dleidert@debian.org>
+Comment: This package was debianized by Ondrej Certik <ondrej@certik.cz> on
+ Sat, 09 Jun 2007 12:41:34 +0000. The current Debian maintainer is Debian
+ Scientific Comp. Team <debian-science-maintainers@lists.alioth.debian.org>.
+License: GPL-2+
+
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+Comment:
+ On Debian Systems the complete text of the GNU General Public License
+ version 2 can be found in the file `/usr/share/common-licenses/GPL-2'.
