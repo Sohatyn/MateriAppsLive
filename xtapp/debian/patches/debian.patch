@@ -806,3 +806,25 @@
 +time cgmrpt > cu-cgmrpt.log
 +
 +time wfn2ee cu '1 1 0' '1 0 1' '0 1 1' '-16 -16 -16' '32 32 32'
+--- a/src/util.f90
++++ b/src/util.f90
+@@ -1099,13 +1099,13 @@
+     integer,intent(in):: nf
+     character(len=*):: msg
+     integer,intent(out):: info
+-    character(len=7):: sstat
++    ! character(len=7):: sstat
+ 
+-    inquire(nf,write=sstat)
+-    if (sstat.eq.'NO') then
+-       write(6,'(1x,a)') 'Error: cannot open '//msg//' for write'
+-       info = 1
+-    end if
++    ! inquire(nf,write=sstat)
++    ! if (sstat.eq.'NO') then
++    !    write(6,'(1x,a)') 'Error: cannot open '//msg//' for write'
++    !    info = 1
++    ! end if
+     return
+   end subroutine chknfwrt
+ 
