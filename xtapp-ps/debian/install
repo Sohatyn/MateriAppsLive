@@ -1,4 +1,3 @@
-band	/usr/share/xtapp/pseudo-potential
-data	/usr/share/xtapp/pseudo-potential
-PS	/usr/share/xtapp/pseudo-potential
-pwav	/usr/share/xtapp/pseudo-potential
+xTAPP-PS-PBE/*	/usr/share/xtapp/pseudo-potential/PBE
+xTAPP-PS-PBE-nc/*	/usr/share/xtapp/pseudo-potential/PBE-nc
+xTAPP-PS-CAPZ/*	/usr/share/xtapp/pseudo-potential/PBE-CAPZ

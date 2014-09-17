@@ -1,3 +1,10 @@
+xtapp-ps (140401-1) wheezy; urgency=low
+
+  * New upstream 14041
+  * Added CAPZ and norm-conserving + PBE 
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Thu, 18 Sep 2014 06:30:52 +0900
+
 xtapp-ps (130903-2) wheezy; urgency=low
 
   * Fixed copyright

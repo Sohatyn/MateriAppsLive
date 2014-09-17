@@ -19,3 +19,5 @@ export DH_OPTIONS
 
 %:
 	dh $@ 
+override_dh_link:
+	ln -s PBE/PS debian/xtapp-ps/usr/share/xtapp/pseudo-potential/PS

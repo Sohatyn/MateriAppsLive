@@ -1,9 +1,9 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: xtapp-util
-Source: http://frodo.wpi-aimr.tohoku.ac.jp/xtapp/index.html
+Source: http://xtapp.cp.is.s.u-tokyo.ac.jp
 
 Files: *
-Copyright: 2013 Yoshihide Yoshimoto
+Copyright: 2000-2014 Yoshihide Yoshimoto
 License: GPL-3+
  xTAPP is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by
  the Free Software Foundation, version 3 of the License.
