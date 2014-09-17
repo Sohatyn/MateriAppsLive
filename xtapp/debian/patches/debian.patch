@@ -171,18 +171,22 @@
  #==========================================================
  ################## FOR ESM METHOD by M.Otani 2006/02/06####################
  ################## Modified by Y.Ando 2011/01/21 ##########################
-@@ -505,7 +505,7 @@
+@@ -505,10 +505,9 @@
  tetrapdos: tetrapdos.F90 subr_tetra.o
  	${FC} -o tetrapdos tetrapdos.F90 subr_tetra.o ${LDLIBS}
  
 -clean: esm_clean
 +clean distclean: esm_clean
  	/bin/rm -f core *.o *~ *.bak *.orig TAGS *.rej *.mod *.log \
- 	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pe2dos tetrapdos \
- 	hmatr2bnd \
+-	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pe2dos tetrapdos \
+-	hmatr2bnd \
++	inipot cgmrpt mdrpt vbpef vbstm wfn2chg wannier pefcos xticonv strconv diffstr iplstr cmpstr pe2dos tetrapdos hmatr2bnd \
+ 	a.out \
+ 	pfft3ds.f90 fft3dsp.f90 fft3dsp_subr.f90 fft3duz.f90 fft3duz_subr.f90 \
+ 	fftgrid.h mkl_dfti.f90 fftgrid-vx.h \
 --- /dev/null
 +++ b/src/Makefile
-@@ -0,0 +1,543 @@
+@@ -0,0 +1,542 @@
 +# Copyright (c) 1983-2000 TAPP Consortium
 +# Copyright (c) 2000-2014 Yoshihide Yoshimoto
 +######################################################################
@@ -692,8 +696,7 @@
 +
 +clean distclean: esm_clean
 +	/bin/rm -f core *.o *~ *.bak *.orig TAGS *.rej *.mod *.log \
-+	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pe2dos tetrapdos \
-+	hmatr2bnd \
++	inipot cgmrpt mdrpt vbpef vbstm wfn2chg wannier pefcos xticonv strconv diffstr iplstr cmpstr pe2dos tetrapdos hmatr2bnd \
 +	a.out \
 +	pfft3ds.f90 fft3dsp.f90 fft3dsp_subr.f90 fft3duz.f90 fft3duz_subr.f90 \
 +	fftgrid.h mkl_dfti.f90 fftgrid-vx.h \
@@ -721,7 +724,7 @@
 +
 +install: default
 +	install -d $(DESTDIR)/usr/bin
-+	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos xticonv strconv diffstr iplstr cmpstr $(DESTDIR)/usr/bin
++	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg wannier pefcos xticonv strconv diffstr iplstr cmpstr pe2dos tetrapdos hmatr2bnd $(DESTDIR)/usr/bin
 +
 +# Local Variables: ***
 +# mode:Makefile ***

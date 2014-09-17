@@ -1,3 +1,9 @@
+xtapp (140916-2) wheezy; urgency=low
+
+  * Added missing binaries: pe2dos tetrapdos hmatr2bnd wannier
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Wed, 17 Sep 2014 21:22:18 +0900
+
 xtapp (140916-1) wheezy; urgency=low
 
   * New upstream release 140916

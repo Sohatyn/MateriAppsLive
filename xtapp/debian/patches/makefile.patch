@@ -89,7 +89,7 @@
  
 +install: default
 +	install -d $(DESTDIR)/usr/bin
-+	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg pefcos xticonv strconv diffstr iplstr cmpstr $(DESTDIR)/usr/bin
++	install inipot cgmrpt mdrpt vbpef vbstm wfn2chg wannier pefcos xticonv strconv diffstr iplstr cmpstr pe2dos tetrapdos hmatr2bnd $(DESTDIR)/usr/bin
 +
  # Local Variables: ***
  # mode:Makefile ***
