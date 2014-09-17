@@ -186,7 +186,7 @@
  	fftgrid.h mkl_dfti.f90 fftgrid-vx.h \
 --- /dev/null
 +++ b/src/Makefile
-@@ -0,0 +1,542 @@
+@@ -0,0 +1,543 @@
 +# Copyright (c) 1983-2000 TAPP Consortium
 +# Copyright (c) 2000-2014 Yoshihide Yoshimoto
 +######################################################################
@@ -700,7 +700,8 @@
 +	a.out \
 +	pfft3ds.f90 fft3dsp.f90 fft3dsp_subr.f90 fft3duz.f90 fft3duz_subr.f90 \
 +	fftgrid.h mkl_dfti.f90 fftgrid-vx.h \
-+	xticonv strconv diffstr iplstr cmpstr
++	xticonv strconv diffstr iplstr cmpstr \
++	rm -f dftd3/*.o
 +
 +################## FOR ESM METHOD by M.Otani 2006/02/06####################
 +################## Modified by Y.Ando 2011/01/21 ##########################

@@ -83,7 +83,17 @@
  # for K computer
  #
  #FC = mpifrtpx
-@@ -505,6 +534,10 @@
+@@ -483,7 +512,8 @@
+ 	a.out \
+ 	pfft3ds.f90 fft3dsp.f90 fft3dsp_subr.f90 fft3duz.f90 fft3duz_subr.f90 \
+ 	fftgrid.h mkl_dfti.f90 fftgrid-vx.h \
+-	xticonv strconv diffstr iplstr cmpstr
++	xticonv strconv diffstr iplstr cmpstr \
++	rm -f dftd3/*.o
+ 
+ ################## FOR ESM METHOD by M.Otani 2006/02/06####################
+ ################## Modified by Y.Ando 2011/01/21 ##########################
+@@ -505,6 +535,10 @@
  .F.f:
  	${CPP} -P ${DEFINES} $< | sed '/^ *$$/d' > $*.f
  
