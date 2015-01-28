@@ -1,3 +1,9 @@
+xtapp (140916-3) wheezy; urgency=low
+
+  * Added AL check script (al.sh and al.cg)
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Wed, 28 Jan 2015 18:36:55 +0900
+
 xtapp (140916-2) wheezy; urgency=low
 
   * Added missing binaries: pe2dos tetrapdos hmatr2bnd wannier
