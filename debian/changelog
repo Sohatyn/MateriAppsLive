@@ -1,0 +1,6 @@
+materiapps-keyring (20150214-1) wheezy; urgency=low
+
+  * Initial version of materiapps-keyring
+  * Added public key for Synge Todo <wistaria@phys.s.u-tokyo.ac.jp> 4096R/15300C6C 2014-03-03 [expires: 2019-03-02]
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Sat Feb 14 22:16:02 JST 2015
