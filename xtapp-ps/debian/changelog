@@ -1,3 +1,9 @@
+xtapp-ps (140401-2) wheezy; urgency=low
+
+  * Moved CAPZ and norm-conserving + PBE to new package xtapp-ps-extra
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Mon, 30 Mar 2015 20:22:27 +0900
+
 xtapp-ps (140401-1) wheezy; urgency=low
 
   * New upstream 14041
