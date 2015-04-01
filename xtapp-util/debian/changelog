@@ -1,3 +1,9 @@
+xtapp-util (150401-1) wheezy; urgency=low
+
+  * New upstream release 150401
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Wed, 01 Apr 2015 14:58:30 +0900
+
 xtapp-util (140916-1) wheezy; urgency=low
 
   * New upstream release 140916
