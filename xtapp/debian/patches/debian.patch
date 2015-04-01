@@ -179,7 +179,7 @@
 +clean distclean: esm_clean
  	/bin/rm -f core *.o *~ *.bak *.orig TAGS *.rej *.mod *.log \
 -	vbpef vbstm cgmrpt mdrpt inipot wfn2chg pe2dos tetrapdos \
--	hmatr2bnd \
+-	hmatr2bnd wannier pefcos \
 +	inipot cgmrpt mdrpt vbpef vbstm wfn2chg wannier pefcos xticonv strconv diffstr iplstr cmpstr pe2dos tetrapdos hmatr2bnd \
  	a.out \
  	pfft3ds.f90 fft3dsp.f90 fft3dsp_subr.f90 fft3duz.f90 fft3duz_subr.f90 \

@@ -1,3 +1,9 @@
+xtapp (150401-1) wheezy; urgency=low
+
+  * New upstream release 150401
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Wed, 01 Apr 2015 14:35:00 +0900
+
 xtapp (140916-4) wheezy; urgency=low
 
   * Fixed XTAPP_PS_DIR in check scripts
