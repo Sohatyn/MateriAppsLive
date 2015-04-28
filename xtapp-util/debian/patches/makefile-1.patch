@@ -10,7 +10,7 @@ Makefile for building Debian package
 +	make $@ -C wfchg2pdos
 --- /dev/null
 +++ b/fldtool/Makefile
-@@ -0,0 +1,72 @@
+@@ -0,0 +1,93 @@
 +# Copyright (c) 2000-2013 Yoshihide Yoshimoto
 +######################################################################
 +# default suffix rules. Do not edit this area.
@@ -19,7 +19,8 @@ Makefile for building Debian package
 +.SUFFIXES:
 +.SUFFIXES: .o .F90 .f90 .c
 +
-+tools: wfn2dx wfk2dx lpt2dx rho2dx rok2dx stm2dx rhomm lptmm wfn2ee
++tools: wfn2dx wfk2dx lpt2dx rho2dx rok2dx stm2dx rhomm lptmm wfn2ee \
++	exrho2dx stm2cci cmprho cmpband wfneig rho2xsf cmpamat cmppdos
 +
 +.f90.o:
 +	${FC} ${F90FLAGS} ${FFLAGS} -c $<
@@ -63,22 +64,42 @@ Makefile for building Debian package
 +	${FC} ${FFLAGS} -o rok2dx rok2dx.F90 outfldprsk.o $(FFT3D_OBJ)
 +stm2dx: stm2dx.f90
 +	${FC} ${FFLAGS} -o stm2dx stm2dx.f90
++stm2cci: stm2cci.F90
++	${FC} ${FFLAGS} -o stm2cci stm2cci.F90
 +rhomm: rhomm.f90
 +	${FC} ${FFLAGS} -o rhomm rhomm.f90
 +lptmm: lptmm.F90 $(FFT3D_OBJ) util.o
 +	${FC} ${FFLAGS} -o lptmm lptmm.F90 $(FFT3D_OBJ) util.o
 +wfn2ee: wfn2ee.F90 outfldpr.o
 +	${FC} ${FFLAGS} ${FOMP_FLAGS} -o wfn2ee wfn2ee.F90 outfldpr.o
++cmprho: cmprho.f90
++	${FC} ${FFLAGS} -o cmprho cmprho.f90
++cmpband: cmpband.F90
++	${FC} ${FFLAGS} -o cmpband cmpband.F90
++wfneig: wfneig.F90
++	${FC} ${FFLAGS} ${FOMP_FLAGS} -o wfneig wfneig.F90
++exrho2dx: exrho2dx.F90 outfldpr.o $(FFT3D_OBJ) util.o fftgrid.h
++	${FC} ${FFLAGS} -o exrho2dx exrho2dx.F90 outfldpr.o $(FFT3D_OBJ) util.o
++rho2xsf: rho2xsf.F90
++	${FC} ${FFLAGS} -o rho2xsf rho2xsf.F90
++cmpamat: cmpamat.F90
++	${FC} ${FFLAGS} -o cmpamat cmpamat.F90
++cmppdos: cmppdos.F90
++	${FC} ${FFLAGS} -o cmppdos cmppdos.F90
 +
 +clean distclean:
 +	/bin/rm -f core *.o *.f *~ *.bak *.orig TAGS *.rej *.mod *.log \
-+	wfn2dx lpt2dx rho2dx rok2dx wfk2dx stm2dx rhomm lptmm wfn2ee a.out \
++	wfn2dx lpt2dx rho2dx rok2dx wfk2dx stm2dx rhomm lptmm wfn2ee stm2cci \
++	cmprho cmpband wfneig rho2xsf cmpamat cmppdos a.out \
 +	pfft3ds.f90 fft3dsp.f90 fft3dsp_subr.f90 fft3duz.f90 fft3duz_subr.f90 \
 +	fftgrid.h
 +
 +install: tools
 +	install -d $(DESTDIR)/usr/bin
-+	install wfn2dx lpt2dx rho2dx rok2dx wfk2dx stm2dx rhomm lptmm wfn2ee $(DESTDIR)/usr/bin
++	install \
++	wfn2dx wfk2dx lpt2dx rho2dx rok2dx stm2dx rhomm lptmm wfn2ee \
++        exrho2dx stm2cci cmprho cmpband wfneig rho2xsf cmpamat cmppdos \
++	$(DESTDIR)/usr/bin
 +
 +# Local Variables: ***
 +# mode:Makefile ***
