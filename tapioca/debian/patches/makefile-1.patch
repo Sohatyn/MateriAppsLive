@@ -6,25 +6,6 @@ Compiler setting and installatoin
 +	make $@ -C src
 --- a/src/Makefile.inc
 +++ b/src/Makefile.inc
-@@ -2,12 +2,12 @@
- ## OS: Cygwin/MS-Windows7
- ## C++: i686-pc-mingw32-g++
- ## Qt: version 4.8.6. only this version is acceptable
--QT4    =  /usr/local/qt4.8.6
--CC     =  i686-pc-mingw32-g++
--CFLAGS = -O3 -Wall -g
--INCS   = -I$(QT4)/include
--LIBS   = -L$(QT4)/lib -lQtCore4 -lQtGui4 -lQtOpenGL4 -lQtXml4 -lopengl32 -lglu32 -L/usr/lib/mingw -llapack -lblas -lg2c -mwindows
--ICON   = icon.o
-+#QT4    =  /usr/local/qt4.8.6
-+#CC     =  i686-pc-mingw32-g++
-+#CFLAGS = -O3 -Wall -g
-+#INCS   = -I$(QT4)/include
-+#LIBS   = -L$(QT4)/lib -lQtCore4 -lQtGui4 -lQtOpenGL4 -lQtXml4 -lopengl32 -lglu32 -L/usr/lib/mingw -llapack -lblas -lg2c -mwindows
-+#ICON   = icon.o
- 
- ### for MS-Windows7
- ## OS: Cygwin/MS-Windows7
 @@ -37,12 +37,12 @@
  #ICON   = 
  
