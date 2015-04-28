@@ -1,0 +1,70 @@
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,2 @@
++All %:
++	make $@ -C src
+--- a/src/Makefile
++++ b/src/Makefile
+@@ -53,11 +53,17 @@
+ $(ICON): icon.rc icon.ico
+ 	windres.exe -i icon.rc -o icon.o
+ 
+-clean:
++clean distclean:
+ 	rm -f *.moc.cpp *.exe *.exe.stackdump *.o *~ *.bak $(TARGET)
+ 
+ depend:
+ 	touch Makefile.dep
+ 	makedepend -fMakefile.dep -Y -- *.cc 2> /dev/null
+ 
++test: $(TARGET)
++
++install: $(TARGET)
++	install -d $(DESTDIR)/usr/libexec/c-tools
++	install $(TARGET) $(DESTDIR)/usr/libexec/c-tools
++
+ include Makefile.dep
+--- a/src/Makefile.inc
++++ b/src/Makefile.inc
+@@ -21,17 +21,17 @@
+ #ICON   = icon.o
+ 
+ ### for Linux, SuSE
+-QT4    =  /usr/lib64/qt4
++#QT4    =  /usr/lib64/qt4
+ #CC     =  g++
+-CFLAGS = -O3 -Wall
+-INCS   = -I$(QT4)/include -I/usr/X11R6/include
++#CFLAGS = -O3 -Wall
++#INCS   = -I$(QT4)/include -I/usr/X11R6/include
+ #LIBS   = -L$(QT4)/lib64 -lQtCore -lQtGui -lQtOpenGL -lQtXml
+ #ICON   = 
+ #CFLAGS = -O3 -Wall -static -static-libgcc
+ #INCS   = -I$(QT4)/include -I/usr/X11R6/include
+ #LIBS   = -L$(QT4)/lib64 -lQtCore -lQtGui -lQtOpenGL -lQtXml -llapack -lblas
+-LIBS   = -L$(QT4)/lib64 -lQtCore -lQtGui -lQtOpenGL -lQtXml -lGLU -llapack -lblas
+-ICON   = 
++#LIBS   = -L$(QT4)/lib64 -lQtCore -lQtGui -lQtOpenGL -lQtXml -lGLU -llapack -lblas
++#ICON   =
+ 
+ 
+ ### for Linux ss00 in MIZUHO-IR
+@@ -52,12 +52,12 @@
+ #MOC    = $(QT4)/bin/moc
+ 
+ ### for Linux, debian 6
+-#QT4    =  /usr
+-#CC     =  g++
+-#CFLAGS = -O3 -Wall
+-#INCS   = -I/usr/include/stlport -I/usr/include/qt4 -I/usr/X11R6/include
+-#LIBS   = -lQtCore -lQtGui -lQtOpenGL -lQtXml -lGLU -lstlport
+-#ICON   = 
++QT4    =  /usr
++CC     =  g++
++CFLAGS = -O3 -Wall
++INCS   = -I/usr/include/qt4 -I/usr/X11R6/include
++LIBS   = -lQtCore -lQtGui -lQtOpenGL -lQtXml -lGLU
++ICON   =
+ 
+ ### for Mac
+ #QT4    =  /usr/local/Trolltech/Qt-4.8.4

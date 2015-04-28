@@ -1,0 +1,5 @@
+c-tools (0.3.1-1) wheezy; urgency=low
+
+  * Initial Debian package for C-Tools
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Tue, 28 Apr 2015 17:24:33 +0900
