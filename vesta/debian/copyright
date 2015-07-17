@@ -1,6 +1,7 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: vesta
-Source:
+Name: vesta
+Maintainer: Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>
+Source: http://jp-minerals.org/vesta/
 
 Files: *
 Copyright: 2006-2015 Koichi Momma and Fujio Izumi
