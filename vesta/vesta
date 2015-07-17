@@ -4,5 +4,5 @@ DIR=`dirname $0`
 if test -x "$DIR/dist/VESTA"; then
   $DIR/dist/VESTA "$@"
 else
-  /usr/share/vesta/vesta "$@"
+  /usr/share/vesta/VESTA "$@"
 fi
