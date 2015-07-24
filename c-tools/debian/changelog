@@ -1,3 +1,9 @@
+c-tools (0.3.1-2) wheezy; urgency=low
+
+  * Updated pseudo-potential filename for OpenMX
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Fri, 24 Jul 2015 01:23:19 +0900
+
 c-tools (0.3.1-1) wheezy; urgency=low
 
   * Initial Debian package for C-Tools

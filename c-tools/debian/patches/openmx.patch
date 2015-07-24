@@ -1,0 +1,39 @@
+--- a/src/defaults.qtml
++++ b/src/defaults.qtml
+@@ -78,21 +78,21 @@
+     <atom element="Mn" accuracy="Low"    pao="Mn6.0"  mode="s2p1d1"  vps="Mn_CA13" />
+     <atom element="Mn" accuracy="Normal" pao="Mn8.0"  mode="s3p2d2f1"  vps="Mn_CA13" />
+     <atom element="Mn" accuracy="High"   pao="Mn10.0"  mode="s3p3d3f1"  vps="Mn_CA13" />
+-    <atom element="Fe" accuracy="Low"    pao="Fe6.0S"  mode="s1p1d1"  vps="Fe_CA13" />
+-    <atom element="Fe" accuracy="Normal" pao="Fe8.0S"  mode="s2p2d2f1"  vps="Fe_CA13" />
+-    <atom element="Fe" accuracy="High"   pao="Fe10.0S"  mode="s3p3d2"  vps="Fe_CA13" />
+-    <atom element="Co" accuracy="Low"    pao="Co6.0S"  mode="s1p1d1"  vps="Co_CA13" />
+-    <atom element="Co" accuracy="Normal" pao="Co8.0S"  mode="s2p2d2f1"  vps="Co_CA13" />
+-    <atom element="Co" accuracy="High"   pao="Co10.0S"  mode="s3p4d3f2"  vps="Co_CA13" />
+-    <atom element="Ni" accuracy="Low"    pao="Ni6.0S"  mode="s1p1d1"  vps="Ni_CA13" />
+-    <atom element="Ni" accuracy="Normal" pao="Ni8.0S"  mode="s2p2d2f1"  vps="Ni_CA13" />
+-    <atom element="Ni" accuracy="High"   pao="Ni10.0S"  mode="s4p4d3f2"  vps="Ni_CA13" />
+-    <atom element="Cu" accuracy="Low"    pao="Cu6.0S"  mode="s1p1d1"  vps="Cu_CA13" />
+-    <atom element="Cu" accuracy="Normal" pao="Cu8.0S"  mode="s2p2d2f1"  vps="Cu_CA13" />
+-    <atom element="Cu" accuracy="High"   pao="Cu10.0S"  mode="s3p3d3"  vps="Cu_CA13" />
+-    <atom element="Zn" accuracy="Low"    pao="Zn6.0S"  mode="s1p1d1"  vps="Zn_CA13" />
+-    <atom element="Zn" accuracy="Normal" pao="Zn8.0S"  mode="s2p2d2f1"  vps="Zn_CA13" />
+-    <atom element="Zn" accuracy="High"   pao="Zn10.0S"  mode="s3p3d2f2"  vps="Zn_CA13" />
++    <atom element="Fe" accuracy="Low"    pao="Fe6.0S"  mode="s1p1d1"  vps="Fe_CA13S" />
++    <atom element="Fe" accuracy="Normal" pao="Fe8.0S"  mode="s2p2d2f1"  vps="Fe_CA13S" />
++    <atom element="Fe" accuracy="High"   pao="Fe10.0S"  mode="s3p3d2"  vps="Fe_CA13S" />
++    <atom element="Co" accuracy="Low"    pao="Co6.0S"  mode="s1p1d1"  vps="Co_CA13S" />
++    <atom element="Co" accuracy="Normal" pao="Co8.0S"  mode="s2p2d2f1"  vps="Co_CA13S" />
++    <atom element="Co" accuracy="High"   pao="Co10.0S"  mode="s3p4d3f2"  vps="Co_CA13S" />
++    <atom element="Ni" accuracy="Low"    pao="Ni6.0S"  mode="s1p1d1"  vps="Ni_CA13S" />
++    <atom element="Ni" accuracy="Normal" pao="Ni8.0S"  mode="s2p2d2f1"  vps="Ni_CA13S" />
++    <atom element="Ni" accuracy="High"   pao="Ni10.0S"  mode="s4p4d3f2"  vps="Ni_CA13S" />
++    <atom element="Cu" accuracy="Low"    pao="Cu6.0S"  mode="s1p1d1"  vps="Cu_CA13S" />
++    <atom element="Cu" accuracy="Normal" pao="Cu8.0S"  mode="s2p2d2f1"  vps="Cu_CA13S" />
++    <atom element="Cu" accuracy="High"   pao="Cu10.0S"  mode="s3p3d3"  vps="Cu_CA13S" />
++    <atom element="Zn" accuracy="Low"    pao="Zn6.0S"  mode="s1p1d1"  vps="Zn_CA13S" />
++    <atom element="Zn" accuracy="Normal" pao="Zn8.0S"  mode="s2p2d2f1"  vps="Zn_CA13S" />
++    <atom element="Zn" accuracy="High"   pao="Zn10.0S"  mode="s3p3d2f2"  vps="Zn_CA13S" />
+     <atom element="Ga" accuracy="Low"    pao="Ga7.0"  mode="s1p1d1"  vps="Ga_CA13" />
+     <atom element="Ga" accuracy="Normal" pao="Ga8.0"  mode="s2p2d2f1"  vps="Ga_CA13" />
+     <atom element="Ga" accuracy="High"   pao="Ga9.0"  mode="s3p3d3f1"  vps="Ga_CA13" />
