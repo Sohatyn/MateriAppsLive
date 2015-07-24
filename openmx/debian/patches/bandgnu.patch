@@ -1,0 +1,27 @@
+--- a/source/makefile
++++ b/source/makefile
+@@ -201,7 +201,7 @@
+ # destination directory
+ #
+ 
+-PROG    = openmx
++PROG    = openmx bandgnu13
+ DESTDIR = ../work
+ 
+ # OpenMX
+@@ -583,7 +583,7 @@
+ 
+ install: $(PROG)
+ 	mkdir -p $(DESTDIR)/usr/bin/
+-	cp $(PROG) $(DESTDIR)/usr/bin/$(PROG)
++	cp $(PROG) $(DESTDIR)/usr/bin/
+ 
+ #
+ #
+@@ -830,3 +830,6 @@
+ 	$(FC) -c solve_evp_real.f90 
+ solve_evp_complex.o: solve_evp_complex.f90 
+ 	$(FC) -c solve_evp_complex.f90
++
++bandgnu13: bandgnu13.c
++	$(CC) -o bandgnu13 bandgnu13.c -lm

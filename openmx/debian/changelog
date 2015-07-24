@@ -1,3 +1,9 @@
+openmx (3.7.8-2) wheezy; urgency=low
+
+  * Included bandgnu13 utility program
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Fri, 24 Jul 2015 09:49:51 +0900
+
 openmx (3.7.8-1) wheezy; urgency=low
 
   * New upstream 3.7.8
