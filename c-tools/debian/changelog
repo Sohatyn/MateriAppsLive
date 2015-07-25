@@ -1,3 +1,9 @@
+c-tools (0.3.1-3) wheezy; urgency=low
+
+  * Fixed calculation of number of valence electrons (patch provided from K. Yoahizawa)
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Sat, 25 Jul 2015 16:33:44 +0900
+
 c-tools (0.3.1-2) wheezy; urgency=low
 
   * Updated pseudo-potential filename for OpenMX

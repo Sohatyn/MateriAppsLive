@@ -37,3 +37,41 @@
      <atom element="Ga" accuracy="Low"    pao="Ga7.0"  mode="s1p1d1"  vps="Ga_CA13" />
      <atom element="Ga" accuracy="Normal" pao="Ga8.0"  mode="s2p2d2f1"  vps="Ga_CA13" />
      <atom element="Ga" accuracy="High"   pao="Ga9.0"  mode="s3p3d3f1"  vps="Ga_CA13" />
+--- a/src/symbol.h
++++ b/src/symbol.h
+@@ -51,7 +51,7 @@
+   switch( number ){
+   case H  : return 1;
+   case He : return 2;
+-  case Li : return 1;
++  case Li : return 2+1;
+   case Be : return 2;
+   case B  : return 2+1;
+   case C  : return 2+2;
+@@ -70,13 +70,13 @@
+   case K  : return 1;
+   case Ca : return 2;
+   case Sc : return 1+2;
+-  case Ti : return 2+2;
++  case Ti : return 6+6;
+   case V  : return 3+2;
+   case Cr : return 5+1;
+   case Mn : return 2+5;
+-  case Fe : return 6+2;
+-  case Co : return 2+7;
+-  case Ni : return 8+2;
++  case Fe : return 10+4;
++  case Co : return 8+7;
++  case Ni : return 8+8;
+   case Cu : return 10+1;
+   case Zn : return 10+2;
+   case Ga : return 2+1;
+@@ -130,7 +130,7 @@
+   case Au : return 10+1;
+   case Hg : return 10+2;
+   case Tl : return 2+1;
+-  case Pb : return 2+2;
++  case Pb : return 7+7;
+   case Bi : return 2+3;
+   case Po : return 2+4; // undef
+   case At : return 2+5; // undef
