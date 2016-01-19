@@ -1,3 +1,9 @@
+xtapp (150401-2) wheezy; urgency=low
+
+  * Add unit 58 in giounit_open
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Tue, 19 Jan 2016 13:53:07 +0900
+
 xtapp (150401-1) wheezy; urgency=low
 
   * New upstream release 150401

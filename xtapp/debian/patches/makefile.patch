@@ -104,3 +104,13 @@
  # Local Variables: ***
  # mode:Makefile ***
  # End:***
+--- a/src/giounit_open.cpp
++++ b/src/giounit_open.cpp
+@@ -42,6 +42,7 @@
+ GIOUNIT_OPEN(50)
+ GIOUNIT_OPEN_UNFORMATTED(51)
+ GIOUNIT_OPEN(55)
++GIOUNIT_OPEN_UNFORMATTED(58)
+ GIOUNIT_OPEN_UNFORMATTED(70)
+ GIOUNIT_OPEN_UNFORMATTED(71)
+ GIOUNIT_OPEN_UNFORMATTED(72)
