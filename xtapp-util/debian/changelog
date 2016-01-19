@@ -1,3 +1,9 @@
+xtapp-util (150401-4) wheezy; urgency=low
+
+  * Fixed segmentation fault in wfk2dx for i686 architecture
+
+ -- Synge Todo <wistaria@phys.s.u-tokyo.ac.jp>  Tue, 19 Jan 2016 13:42:52 +0900
+
 xtapp-util (150401-3) wheezy; urgency=low
 
   * Added missing tools: rho2xsf, stm2cci, exrho2dx, wfneig

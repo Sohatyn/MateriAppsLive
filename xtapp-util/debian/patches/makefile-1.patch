@@ -10,7 +10,7 @@ Makefile for building Debian package
 +	make $@ -C wfchg2pdos
 --- /dev/null
 +++ b/fldtool/Makefile
-@@ -0,0 +1,93 @@
+@@ -0,0 +1,98 @@
 +# Copyright (c) 2000-2013 Yoshihide Yoshimoto
 +######################################################################
 +# default suffix rules. Do not edit this area.
@@ -34,16 +34,21 @@ Makefile for building Debian package
 +# tsurugi, nehalem
 +#
 +FC = gfortran
-+FFLAGS = -O3 -msse3 -fno-inline-functions
 +FOMP_FLAGS = -fopenmp
 +
-+PFFT3DUZ_SUBR_OBJ = pfft3duz_subr_sse3.o pfft3duz_kern_sse3.o
-+FFT3D_OBJ = pfft3duz.o $(PFFT3DUZ_SUBR_OBJ)
++ifeq ($(shell uname -m),x86_64)
++  FFLAGS = -O3 -msse3 -fno-inline-functions
++  PFFT3DUZ_SUBR_OBJ = pfft3duz_subr_sse3.o pfft3duz_kern_sse3.o
++  FFT3D_OBJ = pfft3duz.o $(PFFT3DUZ_SUBR_OBJ)
++else
++  FFLAGS = -O3 -fno-inline-functions
++  FFT3D_OBJ = fft3ds.o
++endif
 +FFTGRID_H_SRC = fftgrid-scl.h
 +
 +#
 +# -O3 failed with intel icc 12.0.4 20110427
-+CC = gcc -O3 -msse3 -fno-inline-functions
++CC = gcc $(FFLAGS)
 +#--------------------------------------------------------------------
 +
 +fftgrid.h: $(FFTGRID_H_SRC)
