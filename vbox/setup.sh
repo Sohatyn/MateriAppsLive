@@ -32,4 +32,7 @@ else
       -e "s|@MINUTE@|${_MINUTE}|g" \
       -e "s|@SECOND@|${_SECOND}|g" \
       ../live/config/bootloaders-wheezy/isolinux/splash.svg.in > malive/splash/splash-jessie.svg.in
+
+  mkdir -p malive/menu
+  cp ../live/config/includes.chroot/etc/xdg/menus/lxde-applications.menu malive/menu
 fi

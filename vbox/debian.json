@@ -9,8 +9,8 @@
         " debian-installer=en_US",
         " locale=en_US",
         " keymap=us",
-        " netcfg/get_hostname=malive ",
-        " netcfg/get_domain=local ",
+        " netcfg/get_hostname=malive",
+        " netcfg/get_domain=local",
         "<enter>"
       ],
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
@@ -58,6 +58,9 @@
         "script/virtualbox.sh",
         "script/dropbox.sh",
         "script/sudo.sh",
+	"script/image.sh",
+	"script/menu.sh",
+        "script/sysctl.sh",
         "script/repos.sh",
         "script/minimize.sh",
         "script/cleanup.sh"
