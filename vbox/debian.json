@@ -1,0 +1,75 @@
+{
+  "builders": [
+    {
+      "boot_command": [
+        "<esc><wait>",
+        "install",
+        " auto",
+        " url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{ user `preseed` }}",
+        " debian-installer=en_US",
+        " locale=en_US",
+        " keymap=us",
+        " netcfg/get_hostname=malive ",
+        " netcfg/get_domain=local ",
+        "<enter>"
+      ],
+      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+      "guest_os_type": "{{ user `virtualbox_guest_os_type` }}",
+      "format": "ova",
+      "http_directory": "http",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_checksum_type": "{{ user `iso_checksum_type` }}",
+      "iso_urls": [
+        "{{ user `iso_url` }}"
+      ],
+      "shutdown_command": "echo {{user `ssh_pass`}} | sudo -S shutdown -hP now",
+      "ssh_password": "{{ user `ssh_pass` }}",
+      "ssh_username": "{{ user `ssh_name` }}",
+      "ssh_wait_timeout": "10000s",
+      "type": "virtualbox-iso",
+      "vboxmanage": [
+          ["setextradata", "global", "GUI/SuppressMessages", "all"],
+          ["modifyvm", "{{.Name}}", "--nictype1", "virtio"],
+          ["modifyvm", "{{.Name}}", "--vram", "32"],
+          ["modifyvm", "{{.Name}}", "--clipboard", "bidirectional"],
+          ["modifyvm", "{{.Name}}", "--usb", "on"],
+          ["modifyvm", "{{.Name}}", "--accelerate3d", "on"],
+          ["modifyvm", "{{.Name}}", "--cpus", "{{ user `cpus` }}"],
+          ["modifyvm", "{{.Name}}", "--memory", "{{ user `memory` }}"]
+      ],
+      "virtualbox_version_file": ".vbox_version",
+      "vm_name": "{{ user `vm_name` }}"
+    }
+  ],
+  "provisioners": [
+    {
+      "destination": "/tmp/",
+      "source": "./malive",
+      "type": "file"
+    },
+    {
+      "environment_vars": [
+        "SSH_USERNAME={{user `ssh_name`}}",
+        "SSH_PASSWORD={{user `ssh_pass`}}"
+      ],
+      "execute_command": "echo {{user `ssh_pass`}} | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "scripts": [
+        "script/remove-cdrom-sources.sh",
+        "script/virtualbox.sh",
+        "script/dropbox.sh",
+        "script/sudo.sh",
+        "script/repos.sh",
+        "script/minimize.sh",
+        "script/cleanup.sh"
+      ],
+      "type": "shell"
+    }
+  ],
+  "variables": {
+    "cpus": "1",
+    "iso_checksum_type": "sha1",
+    "memory": "1024",
+    "ssh_name": "user",
+    "ssh_pass": "live"
+  }
+}
