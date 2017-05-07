@@ -7,8 +7,8 @@ echo "==> Installed packages before cleanup"
 dpkg --get-selections | grep -v deinstall
 
 # Remove some packages to get a minimal install
-echo "==> Removing iceweasel gksu lxmusic xterm"
-apt-get -y purge iceweasel gksu lxmusic xterm
+echo "==> Removing gksu lxmusic xterm clipit deluge deluge-gtk gimp gnome-orca usermode"
+apt-get -y purge gksu lxmusic xterm clipit deluge deluge-gtk gimp gnome-orca usermode
 echo "==> Removing obsolete networking components"
 apt-get -y purge ppp pppconfig pppoeconf
 echo "==> Removing other oddities"

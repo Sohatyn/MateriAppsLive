@@ -21,7 +21,7 @@ else
       -e "s|@HOUR@|${_HOUR}|g" \
       -e "s|@MINUTE@|${_MINUTE}|g" \
       -e "s|@SECOND@|${_SECOND}|g" \
-      ../live/config/bootloaders-wheezy/isolinux/splash.svg.in > malive/splash/splash-wheezy.svg.in
+      splash.svg > malive/splash/splash-wheezy.svg.in
   _PROJECT="Debian GNU/Linux 8 (jessie)"
   sed -e "s|@MA_VERSION@|${MALIVE8_VERSION}|g" \
       -e "s|@PROJECT@|${_PROJECT}|g" \
@@ -31,7 +31,7 @@ else
       -e "s|@HOUR@|${_HOUR}|g" \
       -e "s|@MINUTE@|${_MINUTE}|g" \
       -e "s|@SECOND@|${_SECOND}|g" \
-      ../live/config/bootloaders-wheezy/isolinux/splash.svg.in > malive/splash/splash-jessie.svg.in
+      splash.svg > malive/splash/splash-jessie.svg.in
 
   mkdir -p malive/menu
   cp ../live/config/includes.chroot/etc/xdg/menus/lxde-applications.menu malive/menu

@@ -10,3 +10,5 @@ sh /mnt/VBoxLinuxAdditions.run --nox11
 umount /mnt
 rm /home/user/VBoxGuestAdditions_${VBOX_VERSION}.iso
 rm /home/user/.vbox_version
+
+adduser user vboxsf
